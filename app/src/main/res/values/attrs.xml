@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 自定义加载进度-->
+    <declare-styleable name="AsTimeDialogView">
+        <!--左边圆的颜色-->
+        <attr name="circle_left_color" format="color|reference"/>
+        <!--右边圆的颜色-->
+        <attr name="circle_right_color" format="color|reference"/>
+        <!--圆的最大半径-->
+        <attr name="circle_maxRadius" format="dimension|reference" />
+        <!--左边圆的颜色-->
+        <!--<attr name="circle_minRadius" format="dimension|reference" />-->
+        <!--圆缩放一次的时间-->
+        <attr name="circle_duration" format="integer" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:dialog="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:id="@+id/id_base_progressbar"
+    android:layout_height="match_parent">
+    <jacketjie.astimes.custom.AsTimeDialogView
+        android:id="@+id/id_dialog"
+        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:layout_gravity="center"
+        dialog:circle_duration="100"
+        dialog:circle_maxRadius="15dp"
+        dialog:circle_left_color="@color/colorPrimary"
+        dialog:circle_right_color="@color/colorPrimary"
+        />
+</FrameLayout>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AsTimes</string>
+    <string name="action_settings">Settings</string>
+    <array name="main_tabs_name">
+        <item>首页</item>
+        <item>日志</item>
+        <item>微语</item>
+        <item>我</item>
+    </array>
+</resources>
