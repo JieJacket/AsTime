@@ -1,20 +1,20 @@
 package jacketjie.astimes.views.activities;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTabHost;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TabHost;
+import android.widget.TabWidget;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import jacketjie.astimes.R;
-import jacketjie.astimes.views.fragments.BaseFragment;
 import jacketjie.astimes.views.fragments.MainFirstFragment;
 import jacketjie.astimes.views.fragments.MainForthFragment;
 import jacketjie.astimes.views.fragments.MainSecondFragment;
@@ -25,7 +25,8 @@ import jacketjie.astimes.views.fragments.MainThirdFragment;
  */
 public class AsTimeMainActivity extends AppCompatActivity {
 
-    private TabLayout tabLayout;
+//    private TabLayout tabLayout;
+    private FragmentTabHost fragmentTabHost;
     private String[] tabNames;
     private MainFirstFragment firstFragment;
     private MainSecondFragment secondFragment;
@@ -35,7 +36,8 @@ public class AsTimeMainActivity extends AppCompatActivity {
     private int[] defaultMainTabsRes = {R.drawable.ic_home_white,R.drawable.ic_home_white,R.drawable.ic_home_white,R.drawable.ic_home_white};
     private int[]selectedMainTabsRes = {R.drawable.ic_home_grary,R.drawable.ic_home_grary,R.drawable.ic_home_grary,R.drawable.ic_home_grary};
     private int DEFAULT_TAB_COLOR,SELECTED_TAB_COLOR;
-    private List<BaseFragment> fragments;
+    private List<Fragment> fragments;
+    private Class []tabsFragment = {MainFirstFragment.class,MainSecondFragment.class,MainThirdFragment.class,MainForthFragment.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +52,14 @@ public class AsTimeMainActivity extends AppCompatActivity {
      * 初始化界面
      */
     private void initViews() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        tabLayout = (TabLayout) findViewById(R.id.id_main_tabs);
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fragmentTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
     }
 
     /**
      * 初始化数据
      */
     private void initDatas() {
-        fragments = new ArrayList<BaseFragment>();
+        fragments = new ArrayList<Fragment>();
         if (firstFragment == null){
             firstFragment = new MainFirstFragment();
             fragments.add(firstFragment);
@@ -80,13 +79,12 @@ public class AsTimeMainActivity extends AppCompatActivity {
         DEFAULT_TAB_COLOR = getResources().getColor(R.color.main_tab_default_color);
         SELECTED_TAB_COLOR = getResources().getColor(R.color.colorPrimary);
         tabNames = getResources().getStringArray(R.array.main_tabs_name);
-        for (int i = 0; i < tabNames.length; i++) {
-            TabLayout.Tab tab = tabLayout.newTab();
-            tab.setCustomView(customTab(i));
-            tabLayout.addTab(tab);
+        fragmentTabHost.setup(this,getSupportFragmentManager(),R.id.realtabcontent);
+        for (int i=0;i<tabNames.length;i++){
+            TabHost.TabSpec tabSpec = fragmentTabHost.newTabSpec(tabNames[i]).setIndicator(customTab(i));
+            fragmentTabHost.addTab(tabSpec,tabsFragment[i],null);
         }
-        tabLayout.setSelectedTabIndicatorHeight(0);
-        setDefaultFragment();
+        fragmentTabHost.getTabWidget().setDividerDrawable(null);
         resetTabStatus(curentId);
     }
 
@@ -94,27 +92,14 @@ public class AsTimeMainActivity extends AppCompatActivity {
      * 设置事件
      */
     private void setEventListener() {
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        fragmentTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int pos = tab.getPosition();
-                resetTabStatus(pos);
-                setContentByPos(pos);
-                curentId = pos;
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+            public void onTabChanged(String tabId) {
+                curentId = fragmentTabHost.getCurrentTab();
+                resetTabStatus(curentId);
             }
         });
     }
-
     /**
      * 自定义tab样式
      * @param index
@@ -135,9 +120,10 @@ public class AsTimeMainActivity extends AppCompatActivity {
      * @param pos
      */
     private void resetTabStatus(int pos){
-        for (int i=0;i<tabLayout.getTabCount();i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            TextView singleTab = (TextView) tab.getCustomView().findViewById(R.id.id_single_tab);
+        TabWidget tabWidget =  fragmentTabHost.getTabWidget();
+        for (int i=0;i<tabNames.length;i++){
+            View tab = tabWidget.getChildTabViewAt(i);
+            TextView singleTab = (TextView) tab.findViewById(R.id.id_single_tab);
             if (pos == i){
                 Drawable selectDrawable = getResources().getDrawable(selectedMainTabsRes[i]);
                 selectDrawable.setBounds(0, 0, selectDrawable.getMinimumWidth() / 2, selectDrawable.getMinimumHeight() / 2);
@@ -150,34 +136,30 @@ public class AsTimeMainActivity extends AppCompatActivity {
                 singleTab.setCompoundDrawables(null, defauleDrawable, null, null);
             }
         }
+//        for (int i=0;i<tabLayout.getTabCount();i++) {
+//            TabLayout.Tab tab = tabLayout.getTabAt(i);
+//            TextView singleTab = (TextView) tab.getCustomView().findViewById(R.id.id_single_tab);
+//            if (pos == i){
+//                Drawable selectDrawable = getResources().getDrawable(selectedMainTabsRes[i]);
+//                selectDrawable.setBounds(0, 0, selectDrawable.getMinimumWidth() / 2, selectDrawable.getMinimumHeight() / 2);
+//                singleTab.setTextColor(SELECTED_TAB_COLOR);
+//                singleTab.setCompoundDrawables(null,selectDrawable,null,null);
+//            }else{
+//                Drawable defauleDrawable = getResources().getDrawable(defaultMainTabsRes[i]);
+//                defauleDrawable.setBounds(0, 0, defauleDrawable.getMinimumWidth() / 2, defauleDrawable.getMinimumHeight() / 2);
+//                singleTab.setTextColor(DEFAULT_TAB_COLOR);
+//                singleTab.setCompoundDrawables(null, defauleDrawable, null, null);
+//            }
+//        }
     }
 
     private void setDefaultFragment() {
         if (firstFragment == null) {
             firstFragment = new MainFirstFragment();
         }
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.id_main_content, firstFragment);
         transaction.commit();
-    }
-
-    /**
-     * 点击tab切换fragment
-     * @param pos
-     */
-    private void setContentByPos(int pos) {
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fragment_slide_right_in,R.anim.fragment_slide_left_out,R.anim.fragment_slide_left_in,R.anim.fragment_slide_right_out);
-        if (curentId == pos)
-            return;
-        if (fragments.get(pos).isAdded()){
-            transaction.remove(fragments.get(pos));
-        }
-        transaction.replace(R.id.id_main_content,fragments.get(pos),tabNames[pos]);
-        transaction.commit();
-        curentId = pos;
     }
 
 }

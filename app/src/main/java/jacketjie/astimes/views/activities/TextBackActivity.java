@@ -1,6 +1,7 @@
 package jacketjie.astimes.views.activities;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import jacketjie.astimes.R;
 import jacketjie.astimes.custom.SwipeBackActivity;
@@ -13,7 +14,8 @@ public class TextBackActivity extends SwipeBackActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_forth_fragment);
+        setContentView(R.layout.main_second_fragment);
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
+        ((TextView)findViewById(R.id.action_title)).setText("右滑后退");
     }
 }

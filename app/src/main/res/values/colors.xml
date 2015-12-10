@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00BCD4</color>
+    <color name="colorPrimary">#0097A7</color>
     <color name="colorPrimaryDark">#0097A7</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="main_tab_default_color">#455A64</color>
     <color name="black_p50">#7f000000</color>
+    <color name="slider_color">#7F383737</color>
 </resources>

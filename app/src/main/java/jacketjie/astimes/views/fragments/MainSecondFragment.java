@@ -29,8 +29,7 @@ public class MainSecondFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (displayView == null){
-            displayView = super.onCreateView(inflater,container,savedInstanceState);
-            setContentView(R.layout.main_second_fragment);
+            displayView =inflater.inflate(R.layout.main_second_fragment,container,false);
             initViews(displayView);
         }else {
             ViewGroup parent = (ViewGroup) displayView.getParent();

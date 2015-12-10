@@ -7,4 +7,9 @@
         <item>微语</item>
         <item>我</item>
     </array>
+    <array name="main_first_tabs_name">
+        <item>美文</item>
+        <item>电台</item>
+        <item>图片</item>
+    </array>
 </resources>

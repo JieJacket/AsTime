@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="@android:color/white"
     android:layout_height="match_parent">
+    <include layout="@layout/as_time_top_layout"/>
     <ListView
         android:id="@+id/id_list_view"
         android:layout_width="match_parent"

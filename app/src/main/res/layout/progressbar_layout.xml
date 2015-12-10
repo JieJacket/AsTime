@@ -4,6 +4,7 @@
     xmlns:dialog="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
     android:id="@+id/id_base_progressbar"
+    android:visibility="gone"
     android:layout_height="match_parent">
     <jacketjie.astimes.custom.AsTimeDialogView
         android:id="@+id/id_dialog"
