@@ -2,7 +2,6 @@ package jacketjie.astimes.views.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import jacketjie.astimes.R;
 /**
  * Created by Administrator on 2015/12/9.
  */
-public class MainThirdFragment extends Fragment {
+public class MainThirdFragment extends BaseFragment {
     private View v;
 
     @Override
@@ -23,9 +22,9 @@ public class MainThirdFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.main_third_fragment,container,false);
         if (v == null){
-            v = inflater.inflate(R.layout.main_forth_fragment,container,false);
+            v = super.onCreateView(inflater,container,savedInstanceState);
+            setContentView(R.layout.main_third_fragment);
         }else {
             ViewGroup parent = (ViewGroup) v.getParent();
             if (parent != null){

@@ -1,9 +1,10 @@
 package jacketjie.astimes.views.activities;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,12 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jacketjie.astimes.R;
+import jacketjie.astimes.views.fragments.BaseFragment;
 import jacketjie.astimes.views.fragments.MainFirstFragment;
 import jacketjie.astimes.views.fragments.MainForthFragment;
 import jacketjie.astimes.views.fragments.MainSecondFragment;
 import jacketjie.astimes.views.fragments.MainThirdFragment;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * Created by Administrator on 2015/12/10.
+ */
+public class AsTimeMainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private String[] tabNames;
@@ -30,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private int[] defaultMainTabsRes = {R.drawable.ic_home_white,R.drawable.ic_home_white,R.drawable.ic_home_white,R.drawable.ic_home_white};
     private int[]selectedMainTabsRes = {R.drawable.ic_home_grary,R.drawable.ic_home_grary,R.drawable.ic_home_grary,R.drawable.ic_home_grary};
     private int DEFAULT_TAB_COLOR,SELECTED_TAB_COLOR;
-    private List fragments;
+    private List<BaseFragment> fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +60,23 @@ public class MainActivity extends AppCompatActivity {
      * 初始化数据
      */
     private void initDatas() {
-        fragments = new ArrayList();
-        fragments.add(firstFragment);
-        fragments.add(secondFragment);
-        fragments.add(thirdFragment);
-        fragments.add(forthFragment);
+        fragments = new ArrayList<BaseFragment>();
+        if (firstFragment == null){
+            firstFragment = new MainFirstFragment();
+            fragments.add(firstFragment);
+        }
+        if (secondFragment == null){
+            secondFragment = new MainSecondFragment();
+            fragments.add(secondFragment);
+        }
+        if (thirdFragment == null){
+            thirdFragment = new MainThirdFragment();
+            fragments.add(thirdFragment);
+        }
+        if (forthFragment == null){
+            forthFragment = new MainForthFragment();
+            fragments.add(forthFragment);
+        }
         DEFAULT_TAB_COLOR = getResources().getColor(R.color.main_tab_default_color);
         SELECTED_TAB_COLOR = getResources().getColor(R.color.colorPrimary);
         tabNames = getResources().getStringArray(R.array.main_tabs_name);
@@ -139,7 +156,8 @@ public class MainActivity extends AppCompatActivity {
         if (firstFragment == null) {
             firstFragment = new MainFirstFragment();
         }
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.id_main_content, firstFragment);
         transaction.commit();
     }
@@ -149,49 +167,17 @@ public class MainActivity extends AppCompatActivity {
      * @param pos
      */
     private void setContentByPos(int pos) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fragment_slide_right_in,R.anim.fragment_slide_left_out,R.anim.fragment_slide_left_in,R.anim.fragment_slide_right_out);
         if (curentId == pos)
             return;
-        switch (pos) {
-            case 0:
-                if (firstFragment == null) {
-                    firstFragment = new MainFirstFragment();
-                }
-                if (!firstFragment.isAdded()){
-                    transaction.replace(R.id.id_main_content, firstFragment);
-                    transaction.commit();
-                }
-
-                break;
-            case 1:
-                if (secondFragment == null) {
-                    secondFragment = new MainSecondFragment();
-                }
-                if (!secondFragment.isAdded()){
-
-                    transaction.replace(R.id.id_main_content, secondFragment);
-                transaction.commit();
-                }
-                break;
-            case 2:
-                if (thirdFragment == null) {
-                    thirdFragment = new MainThirdFragment();
-                }
-                if (!thirdFragment.isAdded()){
-                transaction.replace(R.id.id_main_content, thirdFragment);
-                transaction.commit();
-                }
-                break;
-            case 3:
-                if (forthFragment == null) {
-                    forthFragment = new MainForthFragment();
-                }
-                if (!forthFragment.isAdded()){
-                    transaction.replace(R.id.id_main_content, forthFragment);
-                    transaction.commit();
-                }
-                break;
+        if (fragments.get(pos).isAdded()){
+            transaction.remove(fragments.get(pos));
         }
+        transaction.replace(R.id.id_main_content,fragments.get(pos),tabNames[pos]);
+        transaction.commit();
+        curentId = pos;
     }
 
 }

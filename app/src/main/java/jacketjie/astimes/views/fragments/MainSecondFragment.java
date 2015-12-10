@@ -3,7 +3,6 @@ package jacketjie.astimes.views.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import jacketjie.astimes.views.activities.TextBackActivity;
 /**
  * Created by Administrator on 2015/12/9.
  */
-public class MainSecondFragment extends Fragment {
+public class MainSecondFragment extends BaseFragment {
     private View displayView;
     private ListView listView;
 
@@ -30,7 +29,8 @@ public class MainSecondFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (displayView == null){
-            displayView = inflater.inflate(R.layout.main_second_fragment,container,false);
+            displayView = super.onCreateView(inflater,container,savedInstanceState);
+            setContentView(R.layout.main_second_fragment);
             initViews(displayView);
         }else {
             ViewGroup parent = (ViewGroup) displayView.getParent();

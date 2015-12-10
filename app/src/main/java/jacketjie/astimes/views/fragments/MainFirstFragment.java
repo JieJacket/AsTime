@@ -2,7 +2,6 @@ package jacketjie.astimes.views.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,13 +34,7 @@ public class MainFirstFragment extends BaseFragment {
         if (dispalyView == null){
             dispalyView = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
             setContentView(R.layout.main_first_fragment);
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    hideProgressBar();
-                }
-            }, 10000);
+
         }else{
             ViewGroup parent = (ViewGroup) dispalyView.getParent();
             if (parent != null){
