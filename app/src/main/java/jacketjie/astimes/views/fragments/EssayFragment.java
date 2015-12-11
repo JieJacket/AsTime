@@ -52,7 +52,8 @@ public class EssayFragment extends Fragment implements AdapterView.OnItemClickLi
         mDatas = new ArrayList<Essay>();
         imageUrls = new ArrayList<String>();
         for (int i = 1; i <= titles.length; i++) {
-            imageUrls.add(ImageDownloader.Scheme.ASSETS.wrap("test_icon.jpg"));
+            int j = (i+1) % 11;
+            imageUrls.add(ImageDownloader.Scheme.ASSETS.wrap((j+1) + ".jpg"));
         }
         for (int i = 0; i < titles.length; i++) {
             Essay essay = new Essay();
