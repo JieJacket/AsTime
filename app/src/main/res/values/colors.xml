@@ -6,5 +6,6 @@
 
     <color name="main_tab_default_color">#455A64</color>
     <color name="black_p50">#7f000000</color>
-    <color name="slider_color">#7F383737</color>
+    <color name="slider_color">#CED4CA</color>
+    <color name="grid_item_bg">#9fffffff</color>
 </resources>

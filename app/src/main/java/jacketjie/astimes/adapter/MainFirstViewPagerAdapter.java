@@ -16,10 +16,12 @@ public class MainFirstViewPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         this.fragments = fragments;
     }
+
     @Override
     public int getCount() {
-        return  fragments.size();
+        return fragments.size();
     }
+
     @Override
     public Fragment getItem(int position) {
         return fragments.get(position);

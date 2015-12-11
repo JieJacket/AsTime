@@ -10,15 +10,15 @@
     <LinearLayout
         android:id="@+id/id_personal_title_content"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="@dimen/main_pager_dimen"
         android:orientation="horizontal" >
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/fun_slider_line"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="-2dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="-3dp"
         android:background="@drawable/my_data_slider_line"
         android:divider="@null"
         android:orientation="horizontal" >

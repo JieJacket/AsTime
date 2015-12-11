@@ -27,13 +27,16 @@ import jacketjie.astimes.utils.ScreenUtils;
 public class MainFirstFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private ViewGroup dispalyView;
     private ViewPager mViewPager;
-    private String[]tabNames ;
+    private String[] tabNames;
     private List<TextView> textViews;
     private LinearLayout tabsLinear;
     private LinearLayout tabSlider;
     private int currentPager = 0;
     private int offset;
     private MainFirstViewPagerAdapter adapter;
+    private EssayFragment essayFragment;
+    private RadioStationFragment radioStationFragment;
+    private PictureFragment pictureFragment;
     private List<Fragment> fragments;
 
     private int sliderWidth;
@@ -56,7 +59,7 @@ public class MainFirstFragment extends Fragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (dispalyView == null) {
-            dispalyView = (ViewGroup) inflater.inflate(R.layout.main_first_fragment,container,false);
+            dispalyView = (ViewGroup) inflater.inflate(R.layout.main_first_fragment, container, false);
             initViews(dispalyView);
             initDatas();
         } else {
@@ -80,20 +83,29 @@ public class MainFirstFragment extends Fragment implements View.OnClickListener,
         tabNames = getResources().getStringArray(R.array.main_first_tabs_name);
         textViews = new ArrayList<TextView>();
         fragments = new ArrayList<Fragment>();
-        fragments.add(new TestFragment());
-        fragments.add(new TestFragment2());
-        fragments.add(new TestFragment3());
+        if (essayFragment == null) {
+            essayFragment = new EssayFragment();
+            fragments.add(essayFragment);
+        }
+        if (radioStationFragment == null) {
+            radioStationFragment = new RadioStationFragment();
+            fragments.add(radioStationFragment);
+        }
+        if (pictureFragment == null) {
+            pictureFragment = new PictureFragment();
+            fragments.add(pictureFragment);
+        }
 
-        adapter = new MainFirstViewPagerAdapter(getChildFragmentManager(),fragments);
+        adapter = new MainFirstViewPagerAdapter(getChildFragmentManager(), fragments);
         mViewPager.setAdapter(adapter);
 
-        for (int i=0;i<tabNames.length;i++){
+        for (int i = 0; i < tabNames.length; i++) {
             TextView textView = new TextView(getActivity());
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT,1.0f);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
             textView.setLayoutParams(lp);
             textView.setText(tabNames[i]);
             textView.setId(i);
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             textView.setTextColor(Color.WHITE);
             textView.setGravity(Gravity.CENTER);
             tabsLinear.addView(textView);
@@ -103,8 +115,8 @@ public class MainFirstFragment extends Fragment implements View.OnClickListener,
 
 
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tabSlider.getLayoutParams();
-        sliderWidth = (int) (tabsWidth*1.0f / tabNames.length);
-        lp.width =sliderWidth;
+        sliderWidth = (int) (tabsWidth * 1.0f / tabNames.length);
+        lp.width = sliderWidth;
         tabSlider.setLayoutParams(lp);
     }
 
@@ -122,8 +134,8 @@ public class MainFirstFragment extends Fragment implements View.OnClickListener,
 
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tabsLinear.getLayoutParams();
         int screenW = ScreenUtils.getScreenWidth(getActivity());
-        offset = (int) (screenW*1.0f /12);
-        tabsWidth = (int) (screenW * 1.0f / 2);
+        offset = (int) (20 * ScreenUtils.getDensityDpi(getActivity()) * 1.0f / 160);
+        tabsWidth = (int) (screenW * 0.6);
         lp.width = tabsWidth;
         lp.leftMargin = offset;
         tabsLinear.setLayoutParams(lp);
@@ -135,7 +147,7 @@ public class MainFirstFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        switch (id){
+        switch (id) {
             case 0:
                 mViewPager.setCurrentItem(0);
                 break;
@@ -148,14 +160,14 @@ public class MainFirstFragment extends Fragment implements View.OnClickListener,
         }
     }
 
-    private void setTabAndPagerBuPos(int pos){
+    private void setTabAndPagerBuPos(int pos) {
 
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tabSlider.getLayoutParams();
-        lp.leftMargin = (int) ( offset + sliderWidth * position + sliderWidth
+        lp.leftMargin = (int) (offset + sliderWidth * position + sliderWidth
                 * positionOffset);
         tabSlider.setLayoutParams(lp);
     }

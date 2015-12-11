@@ -12,10 +12,11 @@ import jacketjie.astimes.R;
 /**
  * Created by Eric on 15/3/3.
  */
-public class SwipeBackActivity extends AppCompatActivity implements SwipeBackLayout.SwipeBackListener {
+public class BaseActivity extends AppCompatActivity implements SwipeBackLayout.SwipeBackListener {
 
     private SwipeBackLayout swipeBackLayout;
     private ImageView ivShadow;
+    private View dialogView;
 
     @Override
     public void setContentView(int layoutResID) {
@@ -34,6 +35,18 @@ public class SwipeBackActivity extends AppCompatActivity implements SwipeBackLay
         container.addView(ivShadow, params);
         container.addView(swipeBackLayout);
         return container;
+    }
+
+    public void showDialog(){
+        dialogView = findViewById(R.id.id_base_progressbar);
+        if (dialogView != null)
+            dialogView.setVisibility(View.VISIBLE);
+    }
+
+    public void hiddenDialog(){
+        dialogView = findViewById(R.id.id_base_progressbar);
+        if (dialogView != null)
+            dialogView.setVisibility(View.GONE);
     }
 
     public void setDragEdge(SwipeBackLayout.DragEdge dragEdge) {
