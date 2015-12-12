@@ -5,6 +5,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import jacketjie.astimes.R;
+import jacketjie.astimes.utils.StatusBarUtil;
+
 
 public class SwipeBackActivity extends AppCompatActivity implements SwipeBackActivityBase {
     private SwipeBackActivityHelper mHelper;

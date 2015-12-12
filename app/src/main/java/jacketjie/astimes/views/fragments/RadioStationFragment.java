@@ -17,7 +17,7 @@ import java.util.List;
 
 import jacketjie.astimes.R;
 import jacketjie.astimes.adapter.CommonGridViewAdapter;
-import jacketjie.astimes.adapter.Essay;
+import jacketjie.astimes.model.Essay;
 import jacketjie.astimes.views.activities.EssayDetailsActivity;
 
 /**
@@ -51,7 +51,7 @@ public class RadioStationFragment extends Fragment implements AdapterView.OnItem
         }
         for (int i = 0; i < titles.length; i++) {
             Essay essay = new Essay();
-            essay.setEssayId(i);
+            essay.setEssayId(i+"");
             essay.setDisplayUrl(imageUrls.get(i));
             essay.setEssayName(titles[i]);
             essay.setGallery(imageUrls);

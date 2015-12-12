@@ -1,4 +1,4 @@
-package jacketjie.astimes.adapter;
+package jacketjie.astimes.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,9 +9,10 @@ import java.util.List;
  * Created by Administrator on 2015/12/11.
  */
 public class Essay implements Parcelable {
-    private int essayId;
+    private String essayId;
     private String essayName;
     private String displayUrl;
+    private String essayContent;
     private List<String> gallery;
 
     @Override
@@ -21,9 +22,10 @@ public class Essay implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.essayId);
+        dest.writeString(this.essayId);
         dest.writeString(this.essayName);
         dest.writeString(this.displayUrl);
+        dest.writeString(this.essayContent);
         dest.writeStringList(this.gallery);
     }
 
@@ -31,9 +33,10 @@ public class Essay implements Parcelable {
     }
 
     protected Essay(Parcel in) {
-        this.essayId = in.readInt();
+        this.essayId = in.readString();
         this.essayName = in.readString();
         this.displayUrl = in.readString();
+        this.essayContent = in.readString();
         this.gallery = in.createStringArrayList();
     }
 
@@ -55,11 +58,11 @@ public class Essay implements Parcelable {
         this.displayUrl = displayUrl;
     }
 
-    public int getEssayId() {
+    public String getEssayId() {
         return essayId;
     }
 
-    public void setEssayId(int essayId) {
+    public void setEssayId(String essayId) {
         this.essayId = essayId;
     }
 
@@ -77,5 +80,13 @@ public class Essay implements Parcelable {
 
     public void setGallery(List<String> gallery) {
         this.gallery = gallery;
+    }
+
+    public String getEssayContent() {
+        return essayContent;
+    }
+
+    public void setEssayContent(String essayContent) {
+        this.essayContent = essayContent;
     }
 }

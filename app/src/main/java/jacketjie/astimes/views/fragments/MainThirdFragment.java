@@ -23,7 +23,7 @@ public class MainThirdFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (v == null){
-            v = inflater.inflate(R.layout.main_forth_fragment,container,false);
+            v = inflater.inflate(R.layout.main_third_fragment,container,false);
 //            v = super.onCreateView(inflater,container,savedInstanceState);
 //            setContentView(R.layout.main_third_fragment);
         }else {

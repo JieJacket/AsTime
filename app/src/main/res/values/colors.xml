@@ -8,4 +8,5 @@
     <color name="black_p50">#7f000000</color>
     <color name="slider_color">#CED4CA</color>
     <color name="grid_item_bg">#9fffffff</color>
+    <color name="pressed_color">#E6E6E6</color>
 </resources>

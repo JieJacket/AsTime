@@ -11,10 +11,16 @@ import java.util.List;
  */
 public class MainFirstViewPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments;
-
+    private String [] titles;
     public MainFirstViewPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
         super(fm);
         this.fragments = fragments;
+    }
+
+    public MainFirstViewPagerAdapter(FragmentManager fm, List<Fragment> fragments, String[] titles) {
+        super(fm);
+        this.fragments = fragments;
+        this.titles = titles;
     }
 
     @Override
@@ -24,6 +30,12 @@ public class MainFirstViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+
         return fragments.get(position);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return titles[position];
     }
 }

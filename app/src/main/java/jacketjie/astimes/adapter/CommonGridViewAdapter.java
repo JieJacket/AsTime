@@ -8,6 +8,7 @@ import com.nostra13.universalimageloader.core.assist.ImageSize;
 import java.util.List;
 
 import jacketjie.astimes.R;
+import jacketjie.astimes.model.Essay;
 import jacketjie.astimes.utils.ScreenUtils;
 
 /**

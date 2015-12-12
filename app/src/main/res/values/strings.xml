@@ -1,15 +1,29 @@
 <resources>
     <string name="app_name">AsTime</string>
     <string name="action_settings">Settings</string>
+    <string name="as_time_server">http://astimes.sinaapp.com/</string>
+    <string name="essay_type_address">http://www.asweb.sinaapp.com/api/</string>
+    <string name="essay_type_list_address">http://www.asweb.sinaapp.com/api/getlist/</string>
+    <string name="essay_type_list_detail_address">http://www.asweb.sinaapp.com/api/getlist/</string>
+    <string name="user_password">密码</string>
+    <string name="user_name">用户名</string>
+    <string name="login">登录</string>
     <array name="main_tabs_name">
-        <item>首页</item>
         <item>日志</item>
         <item>微语</item>
+        <item>首页</item>
         <item>我</item>
     </array>
     <array name="main_first_tabs_name">
         <item>美文</item>
         <item>电台</item>
         <item>图片</item>
+    </array>
+    <array name="main_forth_selections">
+        <item>我的收藏</item>
+        <item>我的相册</item>
+        <item>我的日志</item>
+        <item>我的微语</item>
+        <item>我的反馈</item>
     </array>
 </resources>

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jacketjie.astimes.R;
+import jacketjie.astimes.custom.AnimFragmentTabHost;
+import jacketjie.astimes.utils.StatusBarUtil;
 import jacketjie.astimes.views.fragments.MainFirstFragment;
 import jacketjie.astimes.views.fragments.MainForthFragment;
 import jacketjie.astimes.views.fragments.MainSecondFragment;
@@ -26,7 +28,7 @@ import jacketjie.astimes.views.fragments.MainThirdFragment;
 public class AsTimeMainActivity extends AppCompatActivity {
 
 //    private TabLayout tabLayout;
-    private FragmentTabHost fragmentTabHost;
+    private AnimFragmentTabHost fragmentTabHost;
     private String[] tabNames;
     private MainFirstFragment firstFragment;
     private MainSecondFragment secondFragment;
@@ -42,6 +44,7 @@ public class AsTimeMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.showStatusBar(this,R.color.colorPrimary);
         setContentView(R.layout.activity_main);
         initViews();
         initDatas();
@@ -52,7 +55,7 @@ public class AsTimeMainActivity extends AppCompatActivity {
      * 初始化界面
      */
     private void initViews() {
-        fragmentTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+        fragmentTabHost = (AnimFragmentTabHost) findViewById(R.id.id_tabhost);
     }
 
     /**

@@ -3,6 +3,7 @@ package jacketjie.astimes.views.fragments;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
@@ -38,6 +39,8 @@ public class MainFirstFragment extends Fragment implements View.OnClickListener,
     private RadioStationFragment radioStationFragment;
     private PictureFragment pictureFragment;
     private List<Fragment> fragments;
+
+    private TabLayout tabLayout;
 
     private int sliderWidth;
     private int tabsWidth;
@@ -96,29 +99,38 @@ public class MainFirstFragment extends Fragment implements View.OnClickListener,
             fragments.add(pictureFragment);
         }
 
-        adapter = new MainFirstViewPagerAdapter(getChildFragmentManager(), fragments);
+        adapter = new MainFirstViewPagerAdapter(getChildFragmentManager(), fragments,tabNames);
         mViewPager.setAdapter(adapter);
-
-        for (int i = 0; i < tabNames.length; i++) {
-            TextView textView = new TextView(getActivity());
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
-            textView.setLayoutParams(lp);
-            textView.setText(tabNames[i]);
-            textView.setId(i);
-            textView.setCompoundDrawablePadding(5);
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
-            textView.setTextColor(Color.WHITE);
-            textView.setGravity(Gravity.CENTER);
-            tabsLinear.addView(textView);
-            textViews.add(textView);
-            textView.setOnClickListener(this);
+        for (int i=0;i<tabNames.length;i++){
+            TabLayout.Tab tab = tabLayout.newTab();
+            tab.setText(tabNames[i]);
+//            tab.setCustomView(setCustomView(i));
+            tabLayout.addTab(tab);
         }
+        tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.setTabsFromPagerAdapter(adapter);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        tabLayout.setTabTextColors(Color.WHITE,Color.WHITE);
+//        for (int i = 0; i < tabNames.length; i++) {
+//            TextView textView = new TextView(getActivity());
+//            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
+//            textView.setLayoutParams(lp);
+//            textView.setText(tabNames[i]);
+//            textView.setId(i);
+//            textView.setCompoundDrawablePadding(5);
+//            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+//            textView.setTextColor(Color.WHITE);
+//            textView.setGravity(Gravity.CENTER);
+//            tabsLinear.addView(textView);
+//            textViews.add(textView);
+//            textView.setOnClickListener(this);
+//        }
 
 
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tabSlider.getLayoutParams();
-        sliderWidth = (int) (tabsWidth * 1.0f / tabNames.length);
-        lp.width = sliderWidth;
-        tabSlider.setLayoutParams(lp);
+//        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tabSlider.getLayoutParams();
+//        sliderWidth = (int) (tabsWidth * 1.0f / tabNames.length);
+//        lp.width = sliderWidth;
+//        tabSlider.setLayoutParams(lp);
     }
 
     @Override
@@ -129,19 +141,21 @@ public class MainFirstFragment extends Fragment implements View.OnClickListener,
 
 
     private void initViews(ViewGroup dispalyView) {
-        tabsLinear = (LinearLayout) dispalyView.findViewById(R.id.id_personal_title_content);
+//        tabsLinear = (LinearLayout) dispalyView.findViewById(R.id.id_personal_title_content);
         mViewPager = (ViewPager) dispalyView.findViewById(R.id.id_first_view_pager);
-        tabSlider = (LinearLayout) dispalyView.findViewById(R.id.fun_slider_line);
+        tabLayout = (TabLayout) dispalyView.findViewById(R.id.id_tabs);
 
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tabsLinear.getLayoutParams();
-        int screenW = ScreenUtils.getScreenWidth(getActivity());
-        offset = (int) (20 * ScreenUtils.getDensityDpi(getActivity()) * 1.0f / 160);
-        tabsWidth = (int) (screenW * 0.6);
-        lp.width = tabsWidth;
-        lp.leftMargin = offset;
-        tabsLinear.setLayoutParams(lp);
+//        tabSlider = (LinearLayout) dispalyView.findViewById(R.id.fun_slider_line);
+//
+//        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tabsLinear.getLayoutParams();
+//        int screenW = ScreenUtils.getScreenWidth(getActivity());
+//        offset = (int) (20 * ScreenUtils.getDensityDpi(getActivity()) * 1.0f / 160);
+//        tabsWidth = (int) (screenW * 0.6);
+//        lp.width = tabsWidth;
+//        lp.leftMargin = offset;
+//        tabsLinear.setLayoutParams(lp);
 
-        mViewPager.addOnPageChangeListener(this);
+//        mViewPager.addOnPageChangeListener(this);
     }
 
 
@@ -161,16 +175,9 @@ public class MainFirstFragment extends Fragment implements View.OnClickListener,
         }
     }
 
-    private void setTabAndPagerBuPos(int pos) {
-
-    }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tabSlider.getLayoutParams();
-        lp.leftMargin = (int) (offset + sliderWidth * position + sliderWidth
-                * positionOffset);
-        tabSlider.setLayoutParams(lp);
     }
 
     @Override

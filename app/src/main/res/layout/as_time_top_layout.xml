@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:clickable="true"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:src="@drawable/common_icon_back" />
 
     <TextView
@@ -21,6 +21,7 @@
         android:layout_toEndOf="@+id/action_back"
         android:layout_toRightOf="@+id/action_back"
         android:gravity="center"
+        android:paddingLeft="20dp"
         android:text="@string/app_name"
         android:textColor="@android:color/white"
         android:textSize="@dimen/main_title_size" />
