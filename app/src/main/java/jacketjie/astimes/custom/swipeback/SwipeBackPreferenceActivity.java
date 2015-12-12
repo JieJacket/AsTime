@@ -1,7 +1,6 @@
 
-package me.imid.swipebacklayout.lib.app;
+package jacketjie.astimes.custom.swipeback;
 
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.view.View;

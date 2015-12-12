@@ -1,4 +1,4 @@
-package me.imid.swipebacklayout.lib.app;
+package jacketjie.astimes.custom.swipeback;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -6,8 +6,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
-import me.imid.swipebacklayout.lib.Utils;
+import jacketjie.astimes.R;
+
 
 /**
  * @author Yrom
@@ -26,7 +26,7 @@ public class SwipeBackActivityHelper {
         mActivity.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mActivity.getWindow().getDecorView().setBackgroundDrawable(null);
         mSwipeBackLayout = (SwipeBackLayout) LayoutInflater.from(mActivity).inflate(
-                me.imid.swipebacklayout.lib.R.layout.swipeback_layout, null);
+               R.layout.swipeback_layout, null);
         mSwipeBackLayout.addSwipeListener(new SwipeBackLayout.SwipeListener() {
             @Override
             public void onScrollStateChange(int state, float scrollPercent) {

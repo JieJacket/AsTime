@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.imid.swipebacklayout.lib;
+package jacketjie.astimes.custom.swipeback;
 
 import android.content.Context;
 import android.support.v4.view.MotionEventCompat;
@@ -316,7 +316,7 @@ public class ViewDragHelper {
          * </p>
          * <p>
          * If this method returns true, a call to
-         * {@link #onViewCaptured(android.view.View, int)} will follow if the
+         * {@link #onViewCaptured(View, int)} will follow if the
          * capture is successful.
          * </p>
          *
@@ -491,7 +491,6 @@ public class ViewDragHelper {
      * callback's
      * {@link me.imid.swipebacklayout.lib.ViewDragHelper.Callback#onEdgeTouched(int, int)}
      * and
-     * {@link me.imid.swipebacklayout.lib.ViewDragHelper.Callback#onEdgeDragStarted(int, int)}
      * methods will only be invoked for edges for which edge tracking has been
      * enabled.
      *
@@ -531,7 +530,7 @@ public class ViewDragHelper {
     /**
      * Capture a specific child view for dragging within the parent. The
      * callback will be notified but
-     * {@link me.imid.swipebacklayout.lib.ViewDragHelper.Callback#tryCaptureView(android.view.View, int)}
+     * {@link me.imid.swipebacklayout.lib.ViewDragHelper.Callback#tryCaptureView(View, int)}
      * will not be asked permission to capture this view.
      *
      * @param childView       Child view to capture
@@ -576,7 +575,7 @@ public class ViewDragHelper {
 
     /**
      * The result of a call to this method is equivalent to
-     * {@link #processTouchEvent(android.view.MotionEvent)} receiving an
+     * {@link #processTouchEvent(MotionEvent)} receiving an
      * ACTION_CANCEL event.
      */
     public void cancel() {
@@ -803,7 +802,7 @@ public class ViewDragHelper {
      *
      * @param deferCallbacks true if state callbacks should be deferred via
      *                       posted message. Set this to true if you are calling this
-     *                       method from {@link android.view.View#computeScroll()} or
+     *                       method from {@link View#computeScroll()} or
      *                       similar methods invoked as part of layout or drawing.
      * @return true if settle is still in progress
      */
@@ -946,8 +945,8 @@ public class ViewDragHelper {
      * (to the best of the ViewDragHelper's knowledge).
      * <p>
      * The state used to report this information is populated by the methods
-     * {@link #shouldInterceptTouchEvent(android.view.MotionEvent)} or
-     * {@link #processTouchEvent(android.view.MotionEvent)}. If one of these
+     * {@link #shouldInterceptTouchEvent(MotionEvent)} or
+     * {@link #processTouchEvent(MotionEvent)}. If one of these
      * methods has not been called for all relevant MotionEvents to track, the
      * information reported by this method may be stale or incorrect.
      * </p>
@@ -1379,8 +1378,8 @@ public class ViewDragHelper {
      * required slop threshold.
      * <p>
      * This depends on internal state populated by
-     * {@link #shouldInterceptTouchEvent(android.view.MotionEvent)} or
-     * {@link #processTouchEvent(android.view.MotionEvent)}. You should only
+     * {@link #shouldInterceptTouchEvent(MotionEvent)} or
+     * {@link #processTouchEvent(MotionEvent)}. You should only
      * rely on the results of this method after all currently available touch
      * data has been provided to one of these two methods.
      * </p>
@@ -1405,8 +1404,8 @@ public class ViewDragHelper {
      * the required slop threshold.
      * <p>
      * This depends on internal state populated by
-     * {@link #shouldInterceptTouchEvent(android.view.MotionEvent)} or
-     * {@link #processTouchEvent(android.view.MotionEvent)}. You should only
+     * {@link #shouldInterceptTouchEvent(MotionEvent)} or
+     * {@link #processTouchEvent(MotionEvent)}. You should only
      * rely on the results of this method after all currently available touch
      * data has been provided to one of these two methods.
      * </p>

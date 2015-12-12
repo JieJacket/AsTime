@@ -33,8 +33,8 @@ public class AsTimeMainActivity extends AppCompatActivity {
     private MainThirdFragment thirdFragment;
     private MainForthFragment forthFragment;
     private int curentId = 0;
-    private int[] defaultMainTabsRes = {R.drawable.ic_home_white,R.drawable.ic_home_white,R.drawable.ic_home_white,R.drawable.ic_home_white};
-    private int[]selectedMainTabsRes = {R.drawable.ic_home_grary,R.drawable.ic_home_grary,R.drawable.ic_home_grary,R.drawable.ic_home_grary};
+    private int[] defaultMainTabsRes = {R.drawable.main_pager_default,R.drawable.my_records_default,R.drawable.wei_yu_default,R.drawable.myself_default};
+    private int[]selectedMainTabsRes = {R.drawable.main_pager,R.drawable.my_records,R.drawable.wei_yu,R.drawable.myself};
     private int DEFAULT_TAB_COLOR,SELECTED_TAB_COLOR;
     private List<Fragment> fragments;
     private Class []tabsFragment = {MainFirstFragment.class,MainSecondFragment.class,MainThirdFragment.class,MainForthFragment.class};
@@ -109,7 +109,7 @@ public class AsTimeMainActivity extends AppCompatActivity {
         View view = getLayoutInflater().inflate(R.layout.custom_tab_view, null);
         TextView tab = (TextView) view.findViewById(R.id.id_single_tab);
         Drawable topDrawable = getResources().getDrawable(defaultMainTabsRes[index]);
-        topDrawable.setBounds(0,0,topDrawable.getMinimumWidth()/2,topDrawable.getMinimumHeight()/2);
+        topDrawable.setBounds(0,0,topDrawable.getMinimumWidth(),topDrawable.getMinimumHeight());
         tab.setCompoundDrawables(null,topDrawable,null,null);
         tab.setText(tabNames[index]);
         return view;
@@ -126,12 +126,12 @@ public class AsTimeMainActivity extends AppCompatActivity {
             TextView singleTab = (TextView) tab.findViewById(R.id.id_single_tab);
             if (pos == i){
                 Drawable selectDrawable = getResources().getDrawable(selectedMainTabsRes[i]);
-                selectDrawable.setBounds(0, 0, selectDrawable.getMinimumWidth() / 2, selectDrawable.getMinimumHeight() / 2);
+                selectDrawable.setBounds(0, 0, selectDrawable.getMinimumWidth() , selectDrawable.getMinimumHeight() );
                 singleTab.setTextColor(SELECTED_TAB_COLOR);
                 singleTab.setCompoundDrawables(null,selectDrawable,null,null);
             }else{
                 Drawable defauleDrawable = getResources().getDrawable(defaultMainTabsRes[i]);
-                defauleDrawable.setBounds(0, 0, defauleDrawable.getMinimumWidth() / 2, defauleDrawable.getMinimumHeight() / 2);
+                defauleDrawable.setBounds(0, 0, defauleDrawable.getMinimumWidth()  , defauleDrawable.getMinimumHeight());
                 singleTab.setTextColor(DEFAULT_TAB_COLOR);
                 singleTab.setCompoundDrawables(null, defauleDrawable, null, null);
             }
