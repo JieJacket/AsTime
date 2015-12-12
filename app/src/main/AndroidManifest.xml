@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".views.activities.TextBackActivity"/>
         <activity android:name=".views.activities.EssayDetailsActivity" />
+        <activity android:name=".views.activities.RecordsDetailsActivity" />
     </application>
 
 </manifest>

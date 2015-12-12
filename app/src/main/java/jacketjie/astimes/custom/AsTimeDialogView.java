@@ -80,7 +80,7 @@ public class AsTimeDialogView extends View{
             maxRadius = ta.getDimension(R.styleable.AsTimeDialogView_circle_maxRadius, 50);
             leftPaintColor = ta.getColor(R.styleable.AsTimeDialogView_circle_left_color, defaultColor);
             rightPaintColor = ta.getColor(R.styleable.AsTimeDialogView_circle_right_color, defaultColor);
-            drawDuration = ta.getInteger(R.styleable.AsTimeDialogView_circle_duration,80);
+            drawDuration = ta.getInteger(R.styleable.AsTimeDialogView_circle_duration,100);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -93,7 +93,7 @@ public class AsTimeDialogView extends View{
      * 设置画笔属性
      */
     private void init() {
-        minRadius = maxRadius/2;
+        minRadius = maxRadius * 2.0f / 3;
         leftPaint = new Paint();
         leftPaint.setAntiAlias(true);
         leftPaint.setColor(leftPaintColor);
@@ -112,7 +112,7 @@ public class AsTimeDialogView extends View{
         super.onDraw(canvas);
         canvas.drawRGB(255, 255, 255);
         canvas.drawCircle(maxRadius, getHeight() / 2, leftRadius, leftPaint);
-        canvas.drawCircle(maxRadius * 3, getHeight() / 2, rightRadius, rightPaint);
+        canvas.drawCircle(maxRadius * 4, getHeight() / 2, rightRadius, rightPaint);
         if (leftRadius >= maxRadius){
             leftExpand = false;
         }
@@ -134,9 +134,9 @@ public class AsTimeDialogView extends View{
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if (getMeasuredWidth() < maxRadius * 4){
+        if (getMeasuredWidth() < maxRadius * 5){
             ViewGroup.LayoutParams lp = this.getLayoutParams();
-            lp.width = (int) (maxRadius * 4 + offset);
+            lp.width = (int) (maxRadius * 5 + offset);
             setLayoutParams(lp);
         }
         if (getMeasuredHeight() < maxRadius * 2){

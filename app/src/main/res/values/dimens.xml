@@ -4,4 +4,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="main_pager_dimen">54dp</dimen>
+    <dimen name="main_title_size">20sp</dimen>
+    <dimen name="main_subhead_size">16sp</dimen>
+    <dimen name="mian_body_size">14sp</dimen>
 </resources>
+

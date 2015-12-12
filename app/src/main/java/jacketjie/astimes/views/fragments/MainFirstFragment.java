@@ -105,7 +105,8 @@ public class MainFirstFragment extends Fragment implements View.OnClickListener,
             textView.setLayoutParams(lp);
             textView.setText(tabNames[i]);
             textView.setId(i);
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            textView.setCompoundDrawablePadding(5);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
             textView.setTextColor(Color.WHITE);
             textView.setGravity(Gravity.CENTER);
             tabsLinear.addView(textView);
