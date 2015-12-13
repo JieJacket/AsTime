@@ -27,6 +27,7 @@
         <activity android:name=".views.activities.RecordsDetailsActivity" />
         <activity android:name=".views.activities.AsTimeMainActivity"/>
         <activity android:name=".views.activities.LoginActivity" />
+        <activity android:name=".views.activities.EssayListDetailsActivity"/>
     </application>
 
 </manifest>

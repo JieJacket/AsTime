@@ -57,7 +57,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="你是此生最美的风景，我是你的命中注定！"
+                        android:text="@string/default_signature"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/main_subhead_size" />
                 </LinearLayout>

@@ -1,11 +1,13 @@
 package jacketjie.astimes.views.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.json.JSONException;
@@ -30,28 +32,42 @@ import jacketjie.astimes.utils.StatusBarUtil;
 public class EssayDetailsActivity extends BaseActivity {
 
     private Toolbar toolbar;
-    private ListView essayContent;
+    private ListView essayContentList;
     private EssayDetailListAdapter essayDetailListAdapter;
     private List<EssayDetail> mDatas;
-private SwipeRefreshLayout refreshLayout;
+    private SwipeRefreshLayout refreshLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.showStatusBar(this,R.color.colorPrimary);
+        StatusBarUtil.showStatusBar(this, R.color.colorPrimary);
         setContentView(R.layout.essay_detail_layout);
         showDialog();
         initViews();
+        setEventListener();
+    }
+
+    private void setEventListener() {
+        essayContentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                EssayDetail essayDetail = mDatas.get(position);
+                Intent intent = new Intent(EssayDetailsActivity.this,EssayListDetailsActivity.class);
+                intent.putExtra("ESSAY_DETAIL",essayDetail);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initViews() {
         final Essay essay = getIntent().getParcelableExtra("ESSAY_DETAIL");
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        essayContent = (ListView) findViewById(R.id.id_essay_content);
+        essayContentList = (ListView) findViewById(R.id.id_essay_content);
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.id_refresh_layout);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new LoadDataTask().execute(getString(R.string.essay_type_list_address),essay.getEssayId());
+                new LoadDataTask().execute(getString(R.string.essay_type_list_address), essay.getEssayId());
             }
         });
         toolbar.setTitle(essay.getEssayName());
@@ -65,15 +81,15 @@ private SwipeRefreshLayout refreshLayout;
             }
         });
         mDatas = new ArrayList<EssayDetail>();
-        essayDetailListAdapter = new EssayDetailListAdapter(this,mDatas,R.layout.main_second_item);
-        essayContent.setAdapter(essayDetailListAdapter);
-        new LoadDataTask().execute(getString(R.string.essay_type_list_address),essay.getEssayId());
+        essayDetailListAdapter = new EssayDetailListAdapter(this, mDatas, R.layout.main_second_item);
+        essayContentList.setAdapter(essayDetailListAdapter);
+        new LoadDataTask().execute(getString(R.string.essay_type_list_address), essay.getEssayId());
     }
 
     /**
      * 请求数据
      */
-    class LoadDataTask extends AsyncTask<String,Void,String>{
+    class LoadDataTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
@@ -94,20 +110,20 @@ private SwipeRefreshLayout refreshLayout;
             try {
                 JSONObject jo = new JSONObject(result);
                 int ret = jo.getInt("code");
-                if (ret == 200){
+                if (ret == 200) {
 //                    JSONArray ja = jo.getJSONArray("data");
                     JSONObject object = jo.getJSONObject("data");
                     List<EssayDetail> results = new ArrayList<EssayDetail>();
                     Iterator iterator = object.keys();
-                    while (iterator.hasNext()){
+                    while (iterator.hasNext()) {
                         EssayDetail essay = new EssayDetail();
                         String key = (String) iterator.next();
-                        if (!TextUtils.isEmpty(key)){
+                        if (!TextUtils.isEmpty(key)) {
                             JSONObject o = object.getJSONObject(key);
-                            essay.setDetailUrl(TextUtils.isEmpty(o.getString("cover"))?"":o.getString("cover"));
-                            essay.setDetailTitle(TextUtils.isEmpty(o.getString("title"))?"":o.getString("title"));
-                            essay.setDetailType(TextUtils.isEmpty(o.getString("type"))?"":o.getString("type"));
-                            essay.setDetailDate(TextUtils.isEmpty(o.getString("date"))?"":o.getString("date"));
+                            essay.setDetailUrl(TextUtils.isEmpty(o.getString("cover")) ? "" : o.getString("cover"));
+                            essay.setDetailTitle(TextUtils.isEmpty(o.getString("title")) ? "" : o.getString("title"));
+                            essay.setDetailType(TextUtils.isEmpty(o.getString("type")) ? "" : o.getString("type"));
+                            essay.setDetailDate(TextUtils.isEmpty(o.getString("date")) ? "" : o.getString("date"));
                             essay.setDetailId(key);
                             results.add(essay);
                         }

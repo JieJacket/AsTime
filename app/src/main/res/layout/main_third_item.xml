@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/id_weiyu_icon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/as_time_icon" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/id_weiyu_icon"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/id_weiyu_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="name"
+                android:textColor="@android:color/background_dark"
+                android:textSize="@dimen/main_subhead_size" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/id_weiyu_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="date"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/min_body_size" />
+
+                <TextView
+                    android:id="@+id/id_weiyu_user_signature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"
+                    android:text="@string/default_signature"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/min_body_size" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/id_weiyu_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_stub"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/id_weiyu_detail_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:ellipsize="end"
+        android:maxLines="3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/item_bg_shape"
+        android:divider="@drawable/vertical_divider"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:showDividers="middle">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/id_weiyu_share"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_share"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="@string/share_str"
+                android:textSize="@dimen/min_body_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/id_weiyu_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_comment"/>
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/comment_str"
+                android:gravity="center"
+                android:textSize="@dimen/min_body_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/id_weiyu_prise"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_prise"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:text="@string/prise_str"
+                android:textSize="@dimen/min_body_size" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

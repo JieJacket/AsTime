@@ -2,12 +2,15 @@ package jacketjie.astimes.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -157,13 +160,16 @@ public class ViewHolder {
      * @param viewId
      * @return
      */
-    public ViewHolder setImageByImageLoader(int viewId, String url,ImageSize imageSize) {
+    public ViewHolder setImageByImageLoader(int viewId, String url,final int targetWidth) {
         final ImageView imageView = getView(viewId);
-        ImageLoader.getInstance().loadImage(url,imageSize,options,new SimpleImageLoadingListener(){
+        ImageLoader.getInstance().loadImage(url,options,new SimpleImageLoadingListener(){
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                 super.onLoadingComplete(imageUri, view, loadedImage);
-                imageView.setImageBitmap(loadedImage);
+                Bitmap bitmap = decodebitmap(loadedImage,targetWidth);
+                if (bitmap != null){
+                    imageView.setImageBitmap(bitmap);
+                }
             }
         });
         return this;
@@ -180,6 +186,25 @@ public class ViewHolder {
         view.setImageBitmap(bm);
         return this;
     }
+    public Bitmap decodebitmap(Bitmap bitmap,int targetWidth) {
 
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;// 如果值设为true，那么将不返回实际的bitmap，也不给其分配内存空间，这样就避免了内存溢出。
+        if (bitmap == null) {
+            return null;
+        }
+
+        int realwidth = bitmap.getWidth();
+        int realheight = bitmap.getHeight();
+        System.out.println("图片真实高度" + realheight + "宽度" + realwidth);
+
+        // 计算缩放。
+        float scal = targetWidth*1.0f /realwidth ;
+        Matrix matrix = new Matrix();
+        matrix.postScale(scal,scal);
+        Bitmap bit = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
+        return bit;
+
+    }
 
 }

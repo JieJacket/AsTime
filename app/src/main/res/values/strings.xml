@@ -4,14 +4,18 @@
     <string name="as_time_server">http://astimes.sinaapp.com/</string>
     <string name="essay_type_address">http://www.asweb.sinaapp.com/api/</string>
     <string name="essay_type_list_address">http://www.asweb.sinaapp.com/api/getlist/</string>
-    <string name="essay_type_list_detail_address">http://www.asweb.sinaapp.com/api/getlist/</string>
+    <string name="essay_type_list_detail_address">http://www.asweb.sinaapp.com/api/getdetail/</string>
     <string name="user_password">密码</string>
     <string name="user_name">用户名</string>
     <string name="login">登录</string>
+    <string name="default_signature">你是此生最美的风景，我是你的命中注定！</string>
+    <string name="share_str">分享</string>
+    <string name="comment_str">评论</string>
+    <string name="prise_str">赞</string>
     <array name="main_tabs_name">
+        <item>首页</item>
         <item>日志</item>
         <item>微语</item>
-        <item>首页</item>
         <item>我</item>
     </array>
     <array name="main_first_tabs_name">
