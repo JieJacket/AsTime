@@ -1,6 +1,8 @@
 package jacketjie.astimes.views.activities;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import jacketjie.astimes.R;
 import jacketjie.astimes.custom.swipeback.SwipeBackActivity;
@@ -18,6 +20,16 @@ public class LoginActivity extends SwipeBackActivity{
     }
 
     private void initViews() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        toolbar.setTitle(R.string.login);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 }

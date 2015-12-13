@@ -61,7 +61,7 @@ public class MySelectionsAdapter extends RecyclerView.Adapter<MySelectionsAdapte
 
         if (selection.getResId() != 0) {
             Drawable d = context.getResources().getDrawable(selection.getResId());
-            d.setBounds(0, 0, d.getMinimumWidth(), d.getMinimumHeight());
+            d.setBounds(0, 0, d.getMinimumWidth()*2/3, d.getMinimumHeight()*2/3);
             holder.textView.setCompoundDrawables(d, null, null, null);
         }
     }
