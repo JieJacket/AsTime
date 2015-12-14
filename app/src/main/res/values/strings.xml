@@ -34,4 +34,5 @@
     </array>
     <string name="action_send">发送</string>
     <string name="action_save">保存</string>
+    <string name="comment_edit_str">精彩评论，由你开始</string>
 </resources>
