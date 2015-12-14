@@ -13,7 +13,6 @@ import org.json.JSONObject;
 
 import jacketjie.astimes.R;
 import jacketjie.astimes.custom.BaseActivity;
-import jacketjie.astimes.model.EssayDetail;
 import jacketjie.astimes.utils.HttpUtils;
 import jacketjie.astimes.utils.StatusBarUtil;
 
@@ -21,7 +20,7 @@ import jacketjie.astimes.utils.StatusBarUtil;
  * 美文详情
  * Created by Administrator on 2015/12/11.
  */
-public class EssayListDetailsActivity extends BaseActivity {
+public class InformalEssayDetailsActivity extends BaseActivity {
 
     private Toolbar toolbar;
     private WebView essayContent;
@@ -37,17 +36,18 @@ public class EssayListDetailsActivity extends BaseActivity {
     }
 
     private void initViews() {
-        final EssayDetail essay = getIntent().getParcelableExtra("DETAILS");
+//        final EssayDetail essay = getIntent().getParcelableExtra("DETAILS");
+        String title = getIntent().getStringExtra("DETAILS");
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         essayContent = (WebView) findViewById(R.id.id_essay_content);
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.id_refresh_layout);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new LoadDataTask().execute(getString(R.string.essay_type_list_address), essay.getDetailId());
+//                new LoadDataTask().execute(getString(R.string.essay_type_list_address), essay.getDetailId());
             }
         });
-        toolbar.setTitle(essay.getDetailTitle());
+        toolbar.setTitle(title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -57,7 +57,7 @@ public class EssayListDetailsActivity extends BaseActivity {
                 onBackPressed();
             }
         });
-        new LoadDataTask().execute(getString(R.string.essay_type_list_detail_address), essay.getDetailId());
+//        new LoadDataTask().execute(getString(R.string.essay_type_list_detail_address), essay.getDetailId());
     }
 
     /**

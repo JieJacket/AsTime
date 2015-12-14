@@ -82,6 +82,7 @@ public class EssayFragment extends Fragment implements AdapterView.OnItemClickLi
         Intent intent = new Intent(getActivity(), EssayDetailsActivity.class);
         intent.putExtra("ESSAY_DETAIL",essay);
         startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.activity_right_in, R.anim.activity_left_out);
     }
 
     public void showDialog(View v){

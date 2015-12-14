@@ -1,13 +1,11 @@
 package jacketjie.astimes.views.fragments;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +17,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import jacketjie.astimes.R;
+import jacketjie.astimes.views.activities.InformalEssayActivity;
+import jacketjie.astimes.views.activities.InformalEssayDetailsActivity;
 import jacketjie.astimes.views.activities.RecordsDetailsActivity;
-import jacketjie.astimes.views.activities.TextBackActivity;
 
 /**
  * Created by Administrator on 2015/12/9.
@@ -32,6 +31,7 @@ public class MainSecondFragment extends BaseFragment {
     private FloatingActionButton fab;
     private ImageView backImage;
     private TextView topTitle;
+    private String[] mDatas;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,21 +77,36 @@ public class MainSecondFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(),RecordsDetailsActivity.class);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.activity_right_in, R.anim.activity_left_out);
             }
         });
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                        handler.sendEmptyMessageDelayed(0x456,3000);
+                handler.sendEmptyMessageDelayed(0x456, 3000);
             }
         });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(fab,"Test",Snackbar.LENGTH_SHORT).show();
+//                Snackbar.make(fab,"Test",Snackbar.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), InformalEssayActivity.class);
+                startActivity(intent);
+            }
+
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), InformalEssayDetailsActivity.class);
+                String title = mDatas[position];
+                intent.putExtra("DETAILS",title);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.activity_right_in, R.anim.activity_left_out);
             }
         });
     }
+
 
     Handler handler =new Handler(){
         @Override
@@ -99,7 +114,7 @@ public class MainSecondFragment extends BaseFragment {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0x123:
-                    String[]mDatas = new String[20];
+                    mDatas = new String[20];
                     for (int i=0;i<20;i++){
                         mDatas[i] = "测试"+i;
                     }

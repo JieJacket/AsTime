@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
+    android:background="@drawable/common_item_style"
     android:orientation="vertical">
 
     <RelativeLayout
-        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/id_weiyu_icon"
@@ -38,8 +38,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_marginTop="4dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -70,9 +70,9 @@
         android:id="@+id/id_weiyu_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_stub"
         android:layout_gravity="center_horizontal"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_stub" />
 
     <TextView
         android:id="@+id/id_weiyu_detail_content"
@@ -84,73 +84,99 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/item_bg_shape"
-        android:divider="@drawable/vertical_divider"
+        android:divider="@drawable/default_divider"
         android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
+        android:padding="1dp"
         android:showDividers="middle">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center">
+
             <ImageView
                 android:id="@+id/id_weiyu_share"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/icon_share"/>
+                android:layout_gravity="center"
+                android:background="@drawable/common_item_style"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="10dp"
+                android:src="@drawable/icon_share" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
+                android:layout_gravity="center"
                 android:gravity="center"
+                android:layout_marginLeft="20dp"
                 android:text="@string/share_str"
                 android:textSize="@dimen/min_body_size" />
-        </LinearLayout>
+        </FrameLayout>
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:clickable="true"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center">
+            android:clickable="true">
+
             <ImageView
                 android:id="@+id/id_weiyu_comment"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/icon_comment"/>
-            <TextView
-                android:layout_marginLeft="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/comment_str"
-                android:gravity="center"
-                android:textSize="@dimen/min_body_size" />
-        </LinearLayout>
+                android:layout_gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="10dp"
 
-        <LinearLayout
+                android:background="@drawable/common_item_style"
+                android:src="@drawable/icon_comment" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="@string/comment_str"
+                android:textSize="@dimen/min_body_size" />
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center">
+
             <ImageView
                 android:id="@+id/id_weiyu_prise"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/icon_prise"/>
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="10dp"
+                android:background="@drawable/common_item_style"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_prise" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
                 android:gravity="center"
-                android:layout_marginLeft="5dp"
                 android:text="@string/prise_str"
                 android:textSize="@dimen/min_body_size" />
-        </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 </LinearLayout>

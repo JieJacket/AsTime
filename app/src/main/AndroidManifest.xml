@@ -26,8 +26,11 @@
         <activity android:name=".views.activities.EssayDetailsActivity" />
         <activity android:name=".views.activities.RecordsDetailsActivity" />
         <activity android:name=".views.activities.AsTimeMainActivity"/>
-        <activity android:name=".views.activities.LoginActivity" />
+        <activity android:name=".views.activities.LoginActivity"  />
         <activity android:name=".views.activities.EssayListDetailsActivity"/>
+        <activity android:name=".views.activities.InformalEssayActivity" />
+        <activity android:name=".views.activities.InformalEssayDetailsActivity"/>
+        <activity android:name=".views.activities.WeiYuDetailsActivity" />
     </application>
 
 </manifest>

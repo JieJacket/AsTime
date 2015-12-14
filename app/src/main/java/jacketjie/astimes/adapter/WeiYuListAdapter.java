@@ -1,37 +1,31 @@
 package jacketjie.astimes.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 import java.util.List;
 
 import jacketjie.astimes.R;
 import jacketjie.astimes.utils.ScreenUtils;
-import jacketjie.astimes.views.fragments.WeiYu;
+import jacketjie.astimes.model.WeiYu;
 
 /**
  * GridView 的适配器
  * Created by Administrator on 2015/12/11.
  */
 public class WeiYuListAdapter extends CommonAdapter<WeiYu> {
-    private final int imageWith;
+    private final int imageWidth;
     private String default_signature;
 
     public WeiYuListAdapter(Context context, List<WeiYu> mDatas, int itemLayoutId) {
         super(context, mDatas, itemLayoutId);
         int width = ScreenUtils.getScreenWidth(context);
-        imageWith = width - 20 * ScreenUtils.getDensityDpi(context) / 160;
+        imageWidth = width - 20 * ScreenUtils.getDensityDpi(context) / 160;
 
         default_signature = context.getResources().getString(R.string.default_signature);
     }
@@ -70,7 +64,7 @@ public class WeiYuListAdapter extends CommonAdapter<WeiYu> {
             helper.setVisiable(R.id.id_weiyu_image, false);
         } else {
             helper.setVisiable(R.id.id_weiyu_image, true);
-            helper.setImageByImageLoader(R.id.id_weiyu_image, item.getImageUrl(),imageWith);
+            helper.setImageByImageLoader(R.id.id_weiyu_image, item.getImageUrl(), imageWidth);
         }
         //是否赞过
         if (item.isHasPrised()) {

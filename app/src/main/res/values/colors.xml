@@ -10,4 +10,7 @@
     <color name="grid_item_bg">#9fffffff</color>
     <color name="pressed_color">#E6E6E6</color>
     <color name="default_bg_color">#F2F2F2</color>
+    <color name="default_all_item_color">#E2E2E2</color>
+    <color name="main_typeface_style">#6e6e6e</color>
+
 </resources>

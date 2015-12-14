@@ -1,4 +1,4 @@
-package jacketjie.astimes.views.fragments;
+package jacketjie.astimes.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

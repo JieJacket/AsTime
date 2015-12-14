@@ -1,15 +1,19 @@
 package jacketjie.astimes.views.fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.nostra13.universalimageloader.core.download.ImageDownloader;
@@ -22,6 +26,8 @@ import java.util.Locale;
 
 import jacketjie.astimes.R;
 import jacketjie.astimes.adapter.WeiYuListAdapter;
+import jacketjie.astimes.model.WeiYu;
+import jacketjie.astimes.views.activities.WeiYuDetailsActivity;
 
 /**
  * Created by Administrator on 2015/12/9.
@@ -32,8 +38,9 @@ public class MainThirdFragment extends BaseFragment {
     private List<WeiYu> mDatas;
     private ListView weiYuListView;
     private SwipeRefreshLayout refresh;
-    private int count = 0;
+    private FloatingActionButton fab;
 
+    private int count = 0;
     private String[] DEFAULT_USER_NAMES = {"结束就是开始", "屁股决定脑袋", "脑袋决定生活", "生存还是毁灭", "活着还是死亡", "这是个问题", "你觉得呢", "结束还是开始"};
     private String[] DEFAULT_USER_CONTENT = {ImageDownloader.Scheme.ASSETS.wrap("1.jpg"), ImageDownloader.Scheme.ASSETS.wrap("2.jpg"), ImageDownloader.Scheme.ASSETS.wrap("3.jpg"), ImageDownloader.Scheme.ASSETS.wrap("4.jpg"), ImageDownloader.Scheme.ASSETS.wrap("5.jpg"), ImageDownloader.Scheme.ASSETS.wrap("6.jpg"), ImageDownloader.Scheme.ASSETS.wrap("7.jpg"), ImageDownloader.Scheme.ASSETS.wrap("8.jpg"), ImageDownloader.Scheme.ASSETS.wrap("8.jpg")};
     private String[] DEFAULT_CONTENT = {"真理惟一可靠的标准就是永远自相符合",
@@ -94,6 +101,7 @@ public class MainThirdFragment extends BaseFragment {
 
         refresh = (SwipeRefreshLayout) v.findViewById(R.id.id_main_third_refresh);
         weiYuListView = (ListView) v.findViewById(R.id.id_weiyu_content);
+        fab = (FloatingActionButton) v.findViewById(R.id.id_fab);
         Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle(getResources().getStringArray(R.array.main_tabs_name)[2]);
@@ -101,7 +109,22 @@ public class MainThirdFragment extends BaseFragment {
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new LoadDataTask().execute((count++)+"");
+                new LoadDataTask().execute((count++) + "");
+            }
+        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(fab, "Test", Snackbar.LENGTH_SHORT).show();
+            }
+        });
+        weiYuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), WeiYuDetailsActivity.class);
+                WeiYu weiYu = mDatas.get(position);
+                intent.putExtra("WEIYU",weiYu);
+                startActivity(intent);
             }
         });
     }

@@ -12,11 +12,13 @@
     <string name="share_str">分享</string>
     <string name="comment_str">评论</string>
     <string name="prise_str">赞</string>
+    <string name="informal_essays">正文</string>
+    <string name="informal_title">标题</string>
     <array name="main_tabs_name">
         <item>首页</item>
-        <item>日志</item>
+        <item>随笔</item>
         <item>微语</item>
-        <item>我</item>
+        <item>我的</item>
     </array>
     <array name="main_first_tabs_name">
         <item>美文</item>
@@ -30,4 +32,6 @@
         <item>我的微语</item>
         <item>我的反馈</item>
     </array>
+    <string name="action_send">发送</string>
+    <string name="action_save">保存</string>
 </resources>

@@ -6,7 +6,7 @@
     <dimen name="main_pager_dimen">54dp</dimen>
     <dimen name="main_title_size">20sp</dimen>
     <dimen name="main_subhead_size">16sp</dimen>
-    <dimen name="mian_body_size">14sp</dimen>
+    <dimen name="main_body_size">14sp</dimen>
     <dimen name="min_body_size">12sp</dimen>
     <dimen name="main_item_dimen">48dp</dimen>
     <dimen name="main_btn_dimen">48dp</dimen>

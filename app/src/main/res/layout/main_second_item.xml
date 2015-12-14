@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/common_item_style"
     android:orientation="vertical">
 
     <ImageView
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:textColor="@color/main_tab_default_color"
-            android:textSize="@dimen/mian_body_size" />
+            android:textSize="@dimen/main_body_size" />
 
         <TextView
             android:id="@+id/id_second_item_date"
@@ -41,6 +42,6 @@
             android:layout_marginLeft="24dp"
             android:layout_toRightOf="@+id/id_second_item_name"
             android:textColor="@color/main_tab_default_color"
-            android:textSize="@dimen/mian_body_size" />
+            android:textSize="@dimen/main_body_size" />
     </RelativeLayout>
 </RelativeLayout>

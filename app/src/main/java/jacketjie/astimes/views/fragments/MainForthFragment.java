@@ -105,6 +105,7 @@ public class MainForthFragment extends BaseFragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.activity_right_in, R.anim.activity_left_out);
             }
         });
     }
