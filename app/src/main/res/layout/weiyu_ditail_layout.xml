@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
@@ -16,104 +17,119 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_bg_shape"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
-            <RelativeLayout
-                android:id="@+id/id_top_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/item_bg_shape">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/id_weiyu_detail_icon"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="15dp"
-                    android:src="@drawable/as_time_icon" />
-
-                <LinearLayout
-                    android:id="@+id/id_user_top"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/id_weiyu_detail_icon"
-                    android:divider="@drawable/horizontal_divider"
-                    android:orientation="vertical"
-                    android:showDividers="end">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/id_weiyu_detail_username"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="name" />
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/id_weiyu_detail_user_gendar"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_marginLeft="5dp"
-                            android:src="@drawable/icon_female" />
-
-                        <TextView
-                            android:id="@+id/id_weiyu_detail_date"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical|end"
-                            android:text="date" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/id_weiyu_user_signature"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/default_signature"
-                        android:textColor="@color/main_tab_default_color"
-                        android:textSize="@dimen/min_body_size" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/id_weiyu_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/id_top_detail"
-                android:layout_marginLeft="66dp">
+                android:background="@drawable/item_bg_shape"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/id_weiyu_detail_content_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_stub" />
+                <RelativeLayout
+                    android:id="@+id/id_top_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/id_weiyu_detail_content_text"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/id_weiyu_detail_icon"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="15dp"
+                        android:src="@drawable/as_time_icon" />
+
+                    <LinearLayout
+                        android:id="@+id/id_user_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/id_weiyu_detail_icon"
+                        android:divider="@drawable/horizontal_divider"
+                        android:orientation="vertical"
+                        android:showDividers="end">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/id_weiyu_detail_username"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="name" />
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/id_weiyu_detail_user_gendar"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_marginLeft="5dp"
+                                android:src="@drawable/icon_male" />
+
+                            <TextView
+                                android:id="@+id/id_weiyu_detail_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical|end"
+                                android:layout_marginRight="20dp"
+                                android:text="date" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/id_weiyu_user_signature"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/default_signature"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="@dimen/min_body_size" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/id_weiyu_detail_content_image"
-                    android:text="呵呵" />
+                    android:layout_below="@+id/id_top_detail"
+                    android:layout_marginLeft="66dp">
 
-                <ImageView
-                    android:id="@+id/id_weiyu_detail_content_prise"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_margin="20dp"
-                    android:src="@drawable/icon_prise" />
+                    <ImageView
+                        android:id="@+id/id_weiyu_detail_content_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/ic_stub" />
 
-                <TextView
-                    android:id="@+id/id_weiyu_from"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:text="来自魅族MX5" />
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/id_weiyu_detail_content_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/id_weiyu_detail_content_image"
+                        android:layout_margin="20dp"
+                        android:text="呵呵" />
+
+                    <ImageView
+                        android:id="@+id/id_weiyu_detail_content_prise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/id_weiyu_detail_content_text"
+                        android:layout_margin="20dp"
+                        android:src="@drawable/icon_prise" />
+
+                    <TextView
+                        android:id="@+id/id_weiyu_from"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/id_weiyu_detail_content_prise"
+                        android:layout_alignTop="@+id/id_weiyu_detail_content_prise"
+                        android:text="来自魅族MX5" />
+                </RelativeLayout>
+            </LinearLayout>
 
             <ListView
                 android:id="@+id/id_weiyu_comment_list"
@@ -130,7 +146,7 @@
                 app:drawableRight="@drawable/icon_send"
                 app:drawableRightEnable="@drawable/icon_send_enable"
                 android:background="@drawable/item_bg_shape"
-                android:hint="精彩评论，由你开始"
+                android:hint="@string/comment_edit_str"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp" />
         </RelativeLayout>

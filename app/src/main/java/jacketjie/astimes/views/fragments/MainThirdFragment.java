@@ -81,10 +81,14 @@ public class MainThirdFragment extends BaseFragment {
             WeiYu weiYu = new WeiYu();
             weiYu.setDate(format.format(new Date()));
             weiYu.setUserName(DEFAULT_USER_NAMES[i % DEFAULT_USER_NAMES.length]);
-            if (i % 2 == 0) {
+            if (i % 3 == 0) {
                 weiYu.setContent(DEFAULT_CONTENT[i % DEFAULT_CONTENT.length]);
+            } else if (i % 3 == 1) {
+                weiYu.setImageUrl(DEFAULT_USER_CONTENT[i % DEFAULT_USER_CONTENT.length]);
             } else {
                 weiYu.setImageUrl(DEFAULT_USER_CONTENT[i % DEFAULT_USER_CONTENT.length]);
+                weiYu.setContent(DEFAULT_CONTENT[i % DEFAULT_CONTENT.length]);
+
             }
             mDatas.add(weiYu);
         }
@@ -123,7 +127,7 @@ public class MainThirdFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), WeiYuDetailsActivity.class);
                 WeiYu weiYu = mDatas.get(position);
-                intent.putExtra("WEIYU",weiYu);
+                intent.putExtra("WEIYU", weiYu);
                 startActivity(intent);
             }
         });
@@ -144,8 +148,9 @@ public class MainThirdFragment extends BaseFragment {
             dialogView.setVisibility(View.GONE);
     }
 
-    class LoadDataTask extends AsyncTask<String,Void,String>{
+    class LoadDataTask extends AsyncTask<String, Void, String> {
         private int mark;
+
         @Override
         protected String doInBackground(String... params) {
             try {
@@ -163,27 +168,33 @@ public class MainThirdFragment extends BaseFragment {
             refresh.setRefreshing(false);
             SimpleDateFormat format = new SimpleDateFormat("MM/dd HH:mm", Locale.getDefault());
             mDatas.clear();
-            if (mark % 2 == 0){
+            if (mark % 2 == 0) {
                 for (int i = 1; i <= 20; i++) {
                     WeiYu weiYu = new WeiYu();
                     weiYu.setDate(format.format(new Date()));
                     weiYu.setUserName(DEFAULT_USER_NAMES[i % DEFAULT_USER_NAMES.length]);
-                    if (i % 2 == 0) {
+                    if (i % 3 == 0) {
                         weiYu.setContent(DEFAULT_CONTENT[i % DEFAULT_CONTENT.length]);
+                    } else if (i % 3 == 1) {
+                        weiYu.setImageUrl(DEFAULT_USER_CONTENT[i % DEFAULT_USER_CONTENT.length]);
                     } else {
                         weiYu.setImageUrl(DEFAULT_USER_CONTENT[i % DEFAULT_USER_CONTENT.length]);
+                        weiYu.setContent(DEFAULT_CONTENT[i % DEFAULT_CONTENT.length]);
                     }
                     mDatas.add(weiYu);
                 }
-            }else{
-                for (int i = 0; i <  20; i++) {
+            } else {
+                for (int i = 0; i < 20; i++) {
                     WeiYu weiYu = new WeiYu();
                     weiYu.setDate(format.format(new Date()));
                     weiYu.setUserName(DEFAULT_USER_NAMES[i % DEFAULT_USER_NAMES.length]);
-                    if (i % 2 == 0) {
+                    if (i % 3 == 0) {
                         weiYu.setContent(DEFAULT_CONTENT[i % DEFAULT_CONTENT.length]);
+                    } else if (i % 3 == 1) {
+                        weiYu.setImageUrl(DEFAULT_USER_CONTENT[i % DEFAULT_USER_CONTENT.length]);
                     } else {
                         weiYu.setImageUrl(DEFAULT_USER_CONTENT[i % DEFAULT_USER_CONTENT.length]);
+                        weiYu.setContent(DEFAULT_CONTENT[i % DEFAULT_CONTENT.length]);
                     }
                     mDatas.add(weiYu);
                 }
