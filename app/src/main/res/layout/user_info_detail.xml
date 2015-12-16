@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_bg_color"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/app_toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/item_bg_shape"
+            android:divider="@drawable/horizontal_divider"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:showDividers="middle">
+
+            <LinearLayout
+                android:id="@+id/id_info_icon_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_item_style"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/info_icon_str" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/id_info_icon"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/as_time_icon" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_info_nickname_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_item_style"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/info_nickname_str" />
+
+                <EditText
+                    android:id="@+id/id_info_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:src="@drawable/as_time_icon" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_info_gendar_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_item_style"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/info_gendar_str" />
+
+                <EditText
+                    android:id="@+id/id_info_gendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_info_signature_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_item_style"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/info_signature_str" />
+
+                <EditText
+                    android:id="@+id/id_info_signature"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/id_user_logout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/main_btn_dimen"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/common_btn_style"
+            android:gravity="center"
+            android:text="@string/logout_str"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/main_title_size" />
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

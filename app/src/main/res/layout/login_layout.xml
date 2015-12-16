@@ -2,8 +2,8 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/default_bg_color"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <LinearLayout
@@ -36,8 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/main_btn_dimen"
                     android:background="@null"
-                    android:hint="@string/user_name"
-                     />
+                    android:hint="@string/user_name" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -50,13 +49,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/main_btn_dimen"
                     android:background="@null"
-                    android:hint="@string/user_password"
-                     />
+                    android:inputType="numberPassword"
+                    android:hint="@string/user_password" />
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
 
         <Button
+            android:id="@+id/id_user_login"
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_btn_dimen"
             android:layout_marginLeft="20dp"
@@ -67,49 +67,79 @@
             android:text="@string/login"
             android:textColor="@android:color/white"
             android:textSize="@dimen/main_title_size" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/id_user_register"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/medium_item_dimen"
+                android:layout_gravity="end"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="木有账号？"
+                android:background="@drawable/common_item_style"
+                android:textSize="@dimen/main_body_size" />
+            <TextView
+                android:id="@+id/id_user_forget"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/medium_item_dimen"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/forget_password_str"
+                android:background="@drawable/common_item_style"
+                android:textSize="@dimen/main_body_size" />
+        </FrameLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
             android:layout_gravity="bottom"
-            >
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-           <LinearLayout
-               android:id="@+id/id_other_login"
-               android:layout_width="match_parent"
-               android:layout_alignParentBottom="true"
-               android:orientation="horizontal"
-               android:gravity="center_horizontal"
-               android:layout_marginBottom="36dp"
-               android:layout_height="wrap_content">
-
-               <ImageButton
-                   android:id="@+id/id_qq_login"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_marginLeft="10dp"
-                   android:layout_marginRight="10dp"
-                   android:layout_centerHorizontal="true"
-                   android:src="@drawable/icon_qq"/>
-               <ImageButton
-                   android:layout_centerHorizontal="true"
-                   android:id="@+id/id_weixin_login"
-                   android:layout_marginLeft="10dp"
-                   android:layout_marginRight="10dp"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:src="@drawable/icon_weixin"/>
-           </LinearLayout>
-            <TextView
-                android:layout_above="@+id/id_other_login"
+            <LinearLayout
+                android:id="@+id/id_other_login"
                 android:layout_width="match_parent"
-                android:text="账号登录"
-                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="36dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/id_qq_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/icon_qq" />
+
+                <ImageButton
+                    android:id="@+id/id_weixin_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/icon_weixin" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/id_other_login"
                 android:layout_marginBottom="20dp"
-                android:textSize="@dimen/main_subhead_size"
-                android:layout_height="wrap_content" />
+                android:gravity="center"
+                android:text="账号登录"
+                android:textSize="@dimen/main_subhead_size" />
         </RelativeLayout>
     </LinearLayout>
 

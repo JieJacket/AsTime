@@ -3,30 +3,29 @@ package jacketjie.astimes.views.activities;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import jacketjie.astimes.R;
+import jacketjie.astimes.custom.EditTextWithDrawable;
 import jacketjie.astimes.model.WeiYu;
 import jacketjie.astimes.utils.HttpUtils;
+import jacketjie.astimes.utils.KeyBoardUtils;
 import jacketjie.astimes.utils.PictureUtil;
 import jacketjie.astimes.utils.ScreenUtils;
 import jacketjie.astimes.utils.StatusBarUtil;
+import jacketjie.astimes.utils.interfaces.OnEditTextDrawableClickListener;
 
 /**
  * 美文详情
@@ -35,13 +34,12 @@ import jacketjie.astimes.utils.StatusBarUtil;
 public class WeiYuDetailsActivity extends BaseActivity {
 
     private Toolbar toolbar;
-    private SwipeRefreshLayout refreshLayout;
     private TextView userName,weiyuDate,userSignature;
     private ImageView userIcon,userGendar,weiyuContentImage;
     private TextView weiyuContent;
     private TextView fromClent;
     private ListView commentListView;
-    private EditText commentEdit;
+    private EditTextWithDrawable commentEdit;
     private int targetWidth;
 
     public WeiYuDetailsActivity() {
@@ -62,7 +60,6 @@ public class WeiYuDetailsActivity extends BaseActivity {
 //        final EssayDetail essay = getIntent().getParcelableExtra("DETAILS");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.id_refresh_layout);
         userName = (TextView) findViewById(R.id.id_weiyu_detail_username);
         userGendar = (ImageView) findViewById(R.id.id_weiyu_detail_user_gendar);
         weiyuDate = (TextView) findViewById(R.id.id_weiyu_detail_date);
@@ -73,7 +70,7 @@ public class WeiYuDetailsActivity extends BaseActivity {
         fromClent = (TextView) findViewById(R.id.id_weiyu_from);
         commentListView = (ListView) findViewById(R.id.id_weiyu_comment_list);
 
-        commentEdit = (EditText) findViewById(R.id.id_weiyu_send_comment);
+        commentEdit = (EditTextWithDrawable) findViewById(R.id.id_weiyu_send_comment);
 //        new LoadDataTask().execute(getString(R.string.essay_type_list_detail_address), essay.getDetailId());
     }
     private void setDataAndEventListener() {
@@ -87,12 +84,6 @@ public class WeiYuDetailsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
-            }
-        });
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-//                new LoadDataTask().execute(getString(R.string.essay_type_list_address), essay.getDetailId());
             }
         });
         userName.setText(TextUtils.isEmpty(weiYu.getUserName()) ? "" : weiYu.getUserName());
@@ -117,6 +108,20 @@ public class WeiYuDetailsActivity extends BaseActivity {
             weiyuContent.setVisibility(View.VISIBLE);
             weiyuContent.setText(weiYu.getContent());
         }
+
+        commentEdit.setOnEditTextDrawableClickListener(new OnEditTextDrawableClickListener() {
+            @Override
+            public void onDrawableLeftClickListener() {
+                Toast.makeText(getApplicationContext(),"click left",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onDrawableRightClickListener() {
+                KeyBoardUtils.closeKeybord(commentEdit, WeiYuDetailsActivity.this);
+                Toast.makeText(getApplicationContext(),"send：" + commentEdit.getText().toString(),Toast.LENGTH_LONG).show();
+                commentEdit.clear();
+            }
+        });
     }
     /**
      * 请求数据
@@ -136,7 +141,6 @@ public class WeiYuDetailsActivity extends BaseActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             hiddenDialog();
-            refreshLayout.setRefreshing(false);
             if (TextUtils.isEmpty(result))
                 return;
             try {

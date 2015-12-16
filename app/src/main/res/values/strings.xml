@@ -5,8 +5,9 @@
     <string name="essay_type_address">http://www.asweb.sinaapp.com/api/</string>
     <string name="essay_type_list_address">http://www.asweb.sinaapp.com/api/getlist/</string>
     <string name="essay_type_list_detail_address">http://www.asweb.sinaapp.com/api/getdetail/</string>
-    <string name="user_password">密码</string>
     <string name="user_name">用户名</string>
+    <string name="user_password">密码</string>
+    <string name="password_repeat_str">确认密码</string>
     <string name="login">登录</string>
     <string name="default_signature">你是此生最美的风景，我是你的命中注定！</string>
     <string name="share_str">分享</string>
@@ -35,4 +36,19 @@
     <string name="action_send">发送</string>
     <string name="action_save">保存</string>
     <string name="comment_edit_str">精彩评论，由你开始</string>
+    <string name="default_loading_str">loading...</string>
+    <string name="login_is_empty">用户名为空！</string>
+    <string name="user_had_existed">用户明已存在！</string>
+    <string name="passwot_is_empty">密码为空！</string>
+    <string name="invalid_user_str">无效的用户</string>
+    <string name="register_str">注册</string>
+    <string name="personal_info_str">个人资料</string>
+    <string name="passwot_isnotequal_repeat">两次输入密码不一致！</string>
+    <string name="info_icon_str">头像</string>
+    <string name="info_nickname_str">昵称</string>
+    <string name="info_gendar_str">性别</string>
+    <string name="info_signature_str">签名</string>
+    <string name="forget_password_str">忘记密码？</string>
+    <string name="logout_str">退出登录</string>
+
 </resources>

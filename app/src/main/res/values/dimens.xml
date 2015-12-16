@@ -10,5 +10,6 @@
     <dimen name="min_body_size">12sp</dimen>
     <dimen name="main_item_dimen">48dp</dimen>
     <dimen name="main_btn_dimen">48dp</dimen>
+    <dimen name="medium_item_dimen">42dp</dimen>
 </resources>
 

@@ -31,10 +31,15 @@
 
     <!-- EditTextWithDrawable-->
     <declare-styleable name="EditTextWithDrawable">
-        <attr name="drawableLeft" format="reference" />
-        <attr name="drawableRight" format="reference" />
+        <attr name="defaultDrawableLeft" format="reference" />
+        <attr name="defaultDrawableRight" format="reference" />
         <attr name="drawableRightEnable" format="reference" />
         <attr name="drawableLeftEnable" format="reference" />
+    </declare-styleable>
 
+    <!--AutoLoadMoreListView -->
+    <declare-styleable name="AutoLoadMoreListView">
+        <attr name="loadMoreLabel" format="string|reference"/>
+        <attr name="loadMoreStyle" format="reference"/>
     </declare-styleable>
 </resources>

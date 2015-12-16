@@ -31,6 +31,8 @@
         <activity android:name=".views.activities.InformalEssayActivity" />
         <activity android:name=".views.activities.InformalEssayDetailsActivity"/>
         <activity android:name=".views.activities.WeiYuDetailsActivity" />
+        <activity android:name=".views.activities.RegisterActivity"/>
+        <activity android:name=".views.activities.UserInfoDetailActivity"/>
     </application>
 
 </manifest>

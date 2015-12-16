@@ -27,8 +27,9 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/main_pager_dimen">
 
-            <ListView
+            <jacketjie.astimes.custom.AutoLoadMoreListView
                 android:id="@+id/id_list_view"
+                app:loadMoreLabel="正在加载"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </android.support.v4.widget.SwipeRefreshLayout>

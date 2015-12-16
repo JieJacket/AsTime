@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/AsTime.iml" filepath="$PROJECT_DIR$/AsTime.iml" />
       <module fileurl="file://$PROJECT_DIR$/AsTimes.iml" filepath="$PROJECT_DIR$/AsTimes.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/greendaogenetator/greendaogenetator.iml" filepath="$PROJECT_DIR$/greendaogenetator/greendaogenetator.iml" />
     </modules>
   </component>
 </project>
