@@ -7,8 +7,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.State;
-import android.util.Log;
 import android.view.View;
 
 
@@ -16,6 +14,7 @@ import android.view.View;
  * This class is from the v7 samples of the Android SDK. It's not by me!
  * <p/>
  * See the license above for details.
+ * recyclerview分割线
  */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import jacketjie.astimes.R;
-import jacketjie.astimes.custom.BaseActivity;
 import jacketjie.astimes.utils.StatusBarUtil;
 
 /**

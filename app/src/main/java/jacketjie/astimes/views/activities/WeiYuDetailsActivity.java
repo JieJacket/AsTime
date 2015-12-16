@@ -17,7 +17,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import jacketjie.astimes.R;
-import jacketjie.astimes.custom.BaseActivity;
 import jacketjie.astimes.model.WeiYu;
 import jacketjie.astimes.utils.HttpUtils;
 import jacketjie.astimes.utils.StatusBarUtil;

@@ -28,7 +28,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import jacketjie.astimes.R;
-import jacketjie.astimes.custom.BaseActivity;
 import jacketjie.astimes.model.EssayDetail;
 import jacketjie.astimes.utils.HttpUtils;
 import jacketjie.astimes.utils.PictureUtil;

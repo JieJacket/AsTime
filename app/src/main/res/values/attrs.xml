@@ -27,6 +27,14 @@
         <attr name="shadow_right" format="reference"/>
         <attr name="shadow_bottom" format="reference"/>
     </declare-styleable>
-
     <attr name="SwipeBackLayoutStyle" format="reference"/>
+
+    <!-- EditTextWithDrawable-->
+    <declare-styleable name="EditTextWithDrawable">
+        <attr name="drawableLeft" format="reference" />
+        <attr name="drawableRight" format="reference" />
+        <attr name="drawableRightEnable" format="reference" />
+        <attr name="drawableLeftEnable" format="reference" />
+
+    </declare-styleable>
 </resources>

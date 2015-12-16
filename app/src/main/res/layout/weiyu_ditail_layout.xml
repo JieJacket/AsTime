@@ -121,11 +121,14 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/id_weiyu_detail" />
 
-            <EditText
+            <jacketjie.astimes.custom.EditTextWithDrawable
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/id_weiyu_send_comment"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/main_btn_dimen"
                 android:layout_alignParentBottom="true"
+                app:drawableRight="@drawable/icon_send"
+                app:drawableRightEnable="@drawable/icon_send_enable"
                 android:background="@drawable/item_bg_shape"
                 android:hint="精彩评论，由你开始"
                 android:paddingLeft="10dp"

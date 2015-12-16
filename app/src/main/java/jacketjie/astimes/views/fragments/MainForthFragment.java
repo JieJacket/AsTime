@@ -26,7 +26,7 @@ import jacketjie.astimes.R;
 import jacketjie.astimes.adapter.MySelectionsAdapter;
 import jacketjie.astimes.custom.DividerItemDecoration;
 import jacketjie.astimes.model.Selection;
-import jacketjie.astimes.utils.interfaces.RecyclerOnItemClickListener;
+import jacketjie.astimes.utils.interfaces.OnRecyclerOnItemClickListener;
 import jacketjie.astimes.views.activities.LoginActivity;
 
 /**
@@ -132,7 +132,7 @@ public class MainForthFragment extends BaseFragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.VERTICAL_LIST));
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(new RecyclerOnItemClickListener() {
+        adapter.setOnItemClickListener(new OnRecyclerOnItemClickListener() {
             @Override
             public void onItemListener(View view, int position) {
                 Toast.makeText(getActivity(),"点击了" + selections.get(position).getTitle(),Toast.LENGTH_SHORT).show();

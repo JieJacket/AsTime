@@ -12,8 +12,8 @@ import java.util.List;
 
 import jacketjie.astimes.R;
 import jacketjie.astimes.model.Selection;
-import jacketjie.astimes.utils.interfaces.RecyclerOnItemClickListener;
-import jacketjie.astimes.utils.interfaces.RecyclerOnItemLongClickListener;
+import jacketjie.astimes.utils.interfaces.OnRecyclerOnItemClickListener;
+import jacketjie.astimes.utils.interfaces.OnRecyclerOnItemLongClickListener;
 
 /**
  * Created by wujie on 2015/12/12.
@@ -22,22 +22,22 @@ public class MySelectionsAdapter extends RecyclerView.Adapter<MySelectionsAdapte
     private List<Selection> mDatas;
     private Context context;
     private LayoutInflater inflater;
-    private RecyclerOnItemClickListener onItemClickListener;
-    private RecyclerOnItemLongClickListener onItemLongClickListener;
+    private OnRecyclerOnItemClickListener onItemClickListener;
+    private OnRecyclerOnItemLongClickListener onItemLongClickListener;
 
-    public RecyclerOnItemClickListener getOnItemClickListener() {
+    public OnRecyclerOnItemClickListener getOnItemClickListener() {
         return onItemClickListener;
     }
 
-    public void setOnItemClickListener(RecyclerOnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnRecyclerOnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public RecyclerOnItemLongClickListener getOnItemLongClickListener() {
+    public OnRecyclerOnItemLongClickListener getOnItemLongClickListener() {
         return onItemLongClickListener;
     }
 
-    public void setOnItemLongClickListener(RecyclerOnItemLongClickListener onItemLongClickListener) {
+    public void setOnItemLongClickListener(OnRecyclerOnItemLongClickListener onItemLongClickListener) {
         this.onItemLongClickListener = onItemLongClickListener;
     }
 

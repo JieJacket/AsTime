@@ -20,7 +20,9 @@ import java.util.ArrayList;
 
 import jacketjie.astimes.R;
 
-
+/**
+ * 自定义带切换动画的FragmentTabHost
+ */
 public class AnimFragmentTabHost extends TabHost implements
         TabHost.OnTabChangeListener {  
     private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();  
