@@ -1,11 +1,13 @@
 package jacketjie.astimes.views.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,16 @@ public class MyInformalEssayDetailActivity extends BaseActivity{
             }
         });
         refreshLayout.setColorSchemeColors(R.color.colorPrimary);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ATInformalEssay essay = mDatas.get(position);
+                Intent intent =new Intent(getApplicationContext(),SimpleWebViewActivity.class);
+                intent.putExtra("ATINFORMALESSAY_DETAILS",essay);
+                startActivity(intent);
+            }
+        });
     }
 
     /**

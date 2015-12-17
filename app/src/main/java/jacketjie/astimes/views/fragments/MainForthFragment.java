@@ -80,7 +80,23 @@ public class MainForthFragment extends BaseFragment {
             }
         }
     }
-
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (v == null) {
+            v = inflater.inflate(R.layout.main_forth_fragment, container, false);
+            setupToolbar(v);
+            setupRecyclerView(v);
+            setupCollapsingToolbar(v);
+            initInfo(v);
+        } else {
+            ViewGroup parent = (ViewGroup) v.getParent();
+            if (parent != null) {
+                parent.removeView(v);
+            }
+        }
+        return v;
+    }
     private void updateUserInfo() {
         ATUser user = AsTimeApp.getCurATUser();
         if (user != null){
@@ -101,24 +117,6 @@ public class MainForthFragment extends BaseFragment {
             personalSignature.setText(R.string.default_signature);
         }
 
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (v == null) {
-            v = inflater.inflate(R.layout.main_forth_fragment, container, false);
-            setupToolbar(v);
-            setupRecyclerView(v);
-            setupCollapsingToolbar(v);
-            initInfo(v);
-        } else {
-            ViewGroup parent = (ViewGroup) v.getParent();
-            if (parent != null) {
-                parent.removeView(v);
-            }
-        }
-        return v;
     }
 
     private void initInfo(View v) {

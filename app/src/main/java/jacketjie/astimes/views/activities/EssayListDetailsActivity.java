@@ -46,17 +46,19 @@ public class EssayListDetailsActivity extends BaseActivity {
                 new LoadDataTask().execute(getString(R.string.essay_type_list_address), essay.getDetailId());
             }
         });
-        toolbar.setTitle(essay.getDetailTitle());
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        if (essay!=null){
+            toolbar.setTitle(essay.getDetailTitle());
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        new LoadDataTask().execute(getString(R.string.essay_type_list_detail_address), essay.getDetailId());
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+            new LoadDataTask().execute(getString(R.string.essay_type_list_detail_address), essay.getDetailId());
+        }
     }
 
     /**
