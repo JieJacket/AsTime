@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/default_informal_essay" />
+                android:src="@drawable/ic_stub" />
 
             <LinearLayout
                 android:layout_width="match_parent"

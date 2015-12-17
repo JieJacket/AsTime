@@ -77,7 +77,7 @@ public class RegisterActivity extends BaseActivity{
                 user.setUserNickName(userName);
                 user.setUserPassword(password);
                 user.setIsActiveUser(true);
-                GreenDaoUtils.insertOrUpdate(getApplicationContext(), user);
+                GreenDaoUtils.insertOrUpdateUser(getApplicationContext(), user);
                 AsTimeApp.setCurATUser(user);
             }
             return user;

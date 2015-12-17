@@ -71,6 +71,7 @@ public class AutoLoadMoreListView extends ListView implements AbsListView.OnScro
             TextView label = (TextView) footerView.findViewById(R.id.id_load_label);
             ProgressBar pb = (ProgressBar) footerView.findViewById(R.id.id_load_pb);
             label.setText(TextUtils.isEmpty(loadMoreLabel)?context.getResources().getString(R.string.default_loading_str):loadMoreLabel);
+            setLoadMoreListenerEnable(true);
             this.setOnScrollListener(this);
         }catch (Exception e){
             e.printStackTrace();
@@ -91,8 +92,8 @@ public class AutoLoadMoreListView extends ListView implements AbsListView.OnScro
                 return;
             }
             if (firstVisibleItem + visibleItemCount== getAdapter().getCount() ){
-                if (onLoadMoreListener != null && !hasAddFooterView && isLoadMoreEnable){
-                    addFooterView(footerView, null, false);
+                if (onLoadMoreListener != null &&!hasAddFooterView &&  isLoadMoreEnable){
+                    addFooterView(footerView,null,false);
                     hasAddFooterView = true;
                     onLoadMoreListener.onLoadMoreListener();
                 }

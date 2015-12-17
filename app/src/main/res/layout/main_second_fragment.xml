@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/as_time_top_layout" />
+        <include layout="@layout/app_toolbar" />
 
         <include
             layout="@layout/progressbar_layout"

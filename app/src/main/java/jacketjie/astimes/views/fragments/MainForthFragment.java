@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -33,6 +32,7 @@ import jacketjie.astimes.greenDao.ATUser;
 import jacketjie.astimes.model.Selection;
 import jacketjie.astimes.utils.interfaces.OnRecyclerOnItemClickListener;
 import jacketjie.astimes.views.activities.LoginActivity;
+import jacketjie.astimes.views.activities.MyInformalEssayDetailActivity;
 import jacketjie.astimes.views.activities.UserInfoDetailActivity;
 
 /**
@@ -179,7 +179,22 @@ public class MainForthFragment extends BaseFragment {
         adapter.setOnItemClickListener(new OnRecyclerOnItemClickListener() {
             @Override
             public void onItemListener(View view, int position) {
-                Toast.makeText(getActivity(), "点击了" + selections.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                    if (AsTimeApp.getCurATUser() != null){
+                        switch (position){
+                            case 0:
+                                break;
+                            case 1:
+                                break;
+                            case 2:
+                                Intent intent = new Intent(getActivity(),MyInformalEssayDetailActivity.class);
+                                startActivity(intent);
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                break;
+                        }
+                    }
             }
         });
     }

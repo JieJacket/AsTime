@@ -29,7 +29,7 @@
     <array name="main_forth_selections">
         <item>我的收藏</item>
         <item>我的相册</item>
-        <item>我的日志</item>
+        <item>我的随笔</item>
         <item>我的微语</item>
         <item>我的反馈</item>
     </array>
@@ -50,5 +50,6 @@
     <string name="info_signature_str">签名</string>
     <string name="forget_password_str">忘记密码？</string>
     <string name="logout_str">退出登录</string>
+    <string name="please_login_first">请先登录</string>
 
 </resources>

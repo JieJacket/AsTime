@@ -1,20 +1,25 @@
 package jacketjie.astimes.views.fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,14 +46,27 @@ public class MainSecondFragment extends BaseFragment {
     private AutoLoadMoreListView listView;
     private SwipeRefreshLayout refreshLayout;
     private FloatingActionButton fab;
-    private ImageView backImage;
-    private TextView topTitle;
     private List<EssayDetail> mDatas;
+    private Toolbar toolbar;
     private MainSecondListAdapter secondListAdapter;
+    private LocalBroadcastManager lbm;
+    public static final String  UPDATE_ESSAY_LIST_ACTION = "update_essay_list_action";
+
+    private BroadcastReceiver recevie = new BroadcastReceiver(){
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (UPDATE_ESSAY_LIST_ACTION.equals(intent.getAction())){
+                Toast.makeText(getActivity(),"需要更新",Toast.LENGTH_LONG).show();
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        lbm = LocalBroadcastManager.getInstance(getActivity());
+        IntentFilter filter = new IntentFilter(UPDATE_ESSAY_LIST_ACTION);
+        lbm.registerReceiver(recevie,filter);
     }
 
     @Nullable
@@ -61,7 +79,7 @@ public class MainSecondFragment extends BaseFragment {
             setEventListener();
             showDialog(displayView);
 //            new LoadMoreDataTask().execute("");
-            new LoadDataTask(false).execute(getString(R.string.essay_type_list_address));
+            new LoadDataTask(true).execute(getString(R.string.essay_type_list_address));
         }else {
             ViewGroup parent = (ViewGroup) displayView.getParent();
             if (parent != null){
@@ -74,9 +92,10 @@ public class MainSecondFragment extends BaseFragment {
     private void initViews(View v) {
         listView = (AutoLoadMoreListView) v.findViewById(R.id.id_list_view);
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.id_refresh_layout);
-        backImage = (ImageView) v.findViewById(R.id.action_back);
-        topTitle = (TextView) v.findViewById(R.id.action_title);
         fab = (FloatingActionButton) v.findViewById(R.id.id_fab);
+        toolbar = (Toolbar) v.findViewById(R.id.toolbar);
+        toolbar.setTitle(getResources().getStringArray(R.array.main_tabs_name)[1]);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         refreshLayout.setColorSchemeColors(R.color.colorPrimary);
 
     }
@@ -125,11 +144,16 @@ public class MainSecondFragment extends BaseFragment {
         listView.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMoreListener() {
-                new LoadDataTask(true).execute(getString(R.string.essay_type_list_address));
+                new LoadDataTask(false).execute(getString(R.string.essay_type_list_address));
             }
         });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        lbm.unregisterReceiver(recevie);
+    }
 
     Handler handler =new Handler(){
         @Override
@@ -169,11 +193,17 @@ public class MainSecondFragment extends BaseFragment {
      * 请求数据
      */
     class LoadDataTask extends AsyncTask<String, Void, String> {
+        /**
+         * 是否需要自动加载更多
+         */
+        private boolean isNeedAutoLoadMore;
+        /**
+         * 上拉刷新还是下拉加载
+         */
+        private boolean isPullToDown;
 
-        private boolean isLoadMore;
-
-        public LoadDataTask(boolean isLoadMore) {
-            this.isLoadMore = isLoadMore;
+        public LoadDataTask(boolean isPullToDown) {
+            this.isPullToDown = isPullToDown;
         }
 
         @Override
@@ -182,6 +212,11 @@ public class MainSecondFragment extends BaseFragment {
             String id = "1";
             url += id;
             String result = HttpUtils.doGet(url);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return result;
         }
 
@@ -189,6 +224,7 @@ public class MainSecondFragment extends BaseFragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             hiddenDialog(displayView);
+            refreshLayout.setRefreshing(false);
             if (TextUtils.isEmpty(result)) {
                 return;
             }
@@ -213,11 +249,11 @@ public class MainSecondFragment extends BaseFragment {
                             results.add(essay);
                         }
                     }
-                    if (isLoadMore){
-                        refreshLayout.setRefreshing(false);
-                    }else{
+
+                    if (isPullToDown){
                         mDatas.clear();
                     }
+                    listView.setOnLoadMoreComplete();
                     mDatas.addAll(results);
                     secondListAdapter.notifyDataSetChanged();
 //                    }

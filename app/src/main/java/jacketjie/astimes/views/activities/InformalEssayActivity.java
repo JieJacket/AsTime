@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.download.ImageDownloader;
@@ -23,19 +22,25 @@ import com.nostra13.universalimageloader.core.download.ImageDownloader;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import jacketjie.astimes.AsTimeApp;
 import jacketjie.astimes.R;
+import jacketjie.astimes.greenDao.ATInformalEssay;
+import jacketjie.astimes.greenDao.GreenDaoUtils;
 import jacketjie.astimes.model.EssayDetail;
 import jacketjie.astimes.utils.HttpUtils;
 import jacketjie.astimes.utils.PictureUtil;
 import jacketjie.astimes.utils.ScreenUtils;
 import jacketjie.astimes.utils.StatusBarUtil;
+import jacketjie.astimes.views.fragments.MainSecondFragment;
 
 /**
- * 美文详情
+ * 写随笔
  * Created by Administrator on 2015/12/11.
  */
 public class InformalEssayActivity extends BaseActivity {
@@ -49,6 +54,7 @@ public class InformalEssayActivity extends BaseActivity {
     private EditText titleEdit, essayEdit;
     private String currentCoverUrl;
     private int imageWidth;
+    private ATInformalEssay lastEssay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,14 +74,12 @@ public class InformalEssayActivity extends BaseActivity {
         ViewGroup.LayoutParams lp = coverImage.getLayoutParams();
         lp.width = imageWidth;
         lp.height = (int) (imageWidth / 1.4);
-        coverImage.setImageResource(R.drawable.default_informal_essay);
     }
 
     private void setEventListener() {
         coverImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent picture = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(picture, PICTURE);
             }
@@ -84,7 +88,7 @@ public class InformalEssayActivity extends BaseActivity {
 
     private void initViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("发心情");
+        toolbar.setTitle("随便写写");
 
         titleInputLayout = (TextInputLayout) findViewById(R.id.id_essay_title_layout);
         titleEdit = (EditText) findViewById(R.id.id_essay_title);
@@ -102,7 +106,12 @@ public class InformalEssayActivity extends BaseActivity {
             }
         });
 
-
+        lastEssay = GreenDaoUtils.getLastNotSubmit(this);
+        if (lastEssay != null){
+            ImageLoader.getInstance().displayImage(lastEssay.getATIEImageUrl(), coverImage);
+            titleEdit.setText(TextUtils.isEmpty(lastEssay.getATIETitle()) ? "" : lastEssay.getATIETitle());
+            essayEdit.setText(TextUtils.isEmpty(lastEssay.getATIEText()) ? "" : lastEssay.getATIEText());
+        }
     }
 
     @Override
@@ -114,17 +123,43 @@ public class InformalEssayActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        if (AsTimeApp.getCurATUser() == null){
+            Toast.makeText(this,R.string.please_login_first,Toast.LENGTH_SHORT).show();
+            return super.onOptionsItemSelected(item);
+        }
         int id = item.getItemId();
-        if (id == R.id.action_send) {
-            String content = essayEdit.getText().toString();
-            Spanned spanned = SpannableString.valueOf(TextUtils.isEmpty(content)?"":content);
-            Html.toHtml(spanned);
-            return true;
+        if (id == R.id.action_shared){
+            saveOrSharedEssay(1);
+        }else if(id == R.id.action_privated){
+            saveOrSharedEssay(0);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    /**
+     * 保存信息
+     */
+    private void saveOrSharedEssay(int id) {
+        if (lastEssay == null){
+            lastEssay = new ATInformalEssay();
+        }
+        if (!TextUtils.isEmpty(currentCoverUrl)){
+            lastEssay.setATIEImageUrl(ImageDownloader.Scheme.FILE.wrap(currentCoverUrl));
+        }else{
+            lastEssay.setATIEImageUrl(ImageDownloader.Scheme.ASSETS.wrap("default_informal_essay.jpg"));
+        }
+        SimpleDateFormat smd = new SimpleDateFormat("MM-dd HH:mm");
+        lastEssay.setATIEReleaseDate(smd.format(new Date()));
+        lastEssay.setATIETitle(titleEdit.getText().toString().trim());
+        lastEssay.setATIEText(essayEdit.getText().toString().trim());
+        lastEssay.setATIEShared(id);
+        lastEssay.setATIEHasSubmit(1);
+        GreenDaoUtils.insertOrUpdateInformalEssay(this,lastEssay);
+        if (id == 1){
+            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(MainSecondFragment.UPDATE_ESSAY_LIST_ACTION));
+        }
+        onBackPressed();
     }
 
     @Override
@@ -183,5 +218,27 @@ public class InformalEssayActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (lastEssay == null){
+                    lastEssay = new ATInformalEssay();
+                }
+                SimpleDateFormat smd = new SimpleDateFormat("MM-dd HH:mm");
+                lastEssay.setATIEReleaseDate(smd.format(new Date()));
+                lastEssay.setATIETitle(titleEdit.getText().toString().trim());
+                lastEssay.setATIEText(essayEdit.getText().toString().trim());
+                lastEssay.setATIEShared(0);
+                if (!TextUtils.isEmpty(currentCoverUrl)){
+                    lastEssay.setATIEImageUrl(ImageDownloader.Scheme.FILE.wrap(currentCoverUrl));
+                }
+                GreenDaoUtils.insertOrUpdateInformalEssay(InformalEssayActivity.this, lastEssay);
+            }
+        }).start();
     }
 }

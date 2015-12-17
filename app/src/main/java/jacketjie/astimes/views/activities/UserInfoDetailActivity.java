@@ -76,7 +76,7 @@ public class UserInfoDetailActivity extends BaseActivity{
             public void onClick(View v) {
                 ATUser user = AsTimeApp.getCurATUser();
                 user.setIsActiveUser(false);
-                GreenDaoUtils.insertOrUpdate(getApplicationContext(), user);
+                GreenDaoUtils.insertOrUpdateUser(getApplicationContext(), user);
                 AsTimeApp.setCurATUser(null);
                 LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(UserInfoDetailActivity.this);
                 Intent intent = new Intent("UPDATE_USER_RECEIVER");
@@ -145,7 +145,7 @@ public class UserInfoDetailActivity extends BaseActivity{
         @Override
         protected ATUser doInBackground(ATUser... params) {
             ATUser updateUser = params[0];
-            GreenDaoUtils.insertOrUpdate(getApplicationContext(),updateUser);
+            GreenDaoUtils.insertOrUpdateUser(getApplicationContext(), updateUser);
             AsTimeApp.setCurATUser(updateUser);
             return null;
         }

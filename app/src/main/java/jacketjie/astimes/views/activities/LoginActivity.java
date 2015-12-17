@@ -95,7 +95,7 @@ public class LoginActivity extends BaseActivity{
             ATUser user = GreenDaoUtils.getUserFromLogin(getApplicationContext(), userName, password);
             if (user != null){
                 user.setIsActiveUser(true);
-                GreenDaoUtils.insertOrUpdate(getApplicationContext(), user);
+                GreenDaoUtils.insertOrUpdateUser(getApplicationContext(), user);
             }
             return user;
         }

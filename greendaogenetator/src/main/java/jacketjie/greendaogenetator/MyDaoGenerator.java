@@ -16,11 +16,12 @@ public class MyDaoGenerator {
 
 //        addAdsNote(schema);
         addNote(schema);
+        addAdsNote(schema);
 //        addCustomerOrder(schema);
 
         new DaoGenerator().generateAll(schema, "../AsTimes/app/src/main/java");
     }
-
+    //用户
     private static void addNote(Schema schema) {
         Entity note = schema.addEntity("ATUser");
         note.addIdProperty();
@@ -35,14 +36,17 @@ public class MyDaoGenerator {
         note.addBooleanProperty("isActiveUser");
         note.addDateProperty("updateTime");
     }
+    //随笔
     private static void addAdsNote(Schema schema) {
-        Entity note = schema.addEntity("ADs");
+        Entity note = schema.addEntity("ATInformalEssay");
         note.addIdProperty();
-        note.addIntProperty("adsId").notNull().unique();
-        note.addIntProperty("adsPosition").notNull();
-        note.addStringProperty("adsImageUrl");
-        note.addStringProperty("adsImageAdurl");
-        note.addIntProperty("adsType");
+        note.addStringProperty("ATIEId").notNull().unique();
+        note.addStringProperty("ATIEImageUrl");
+        note.addStringProperty("ATIETitle");
+        note.addStringProperty("ATIEText");
+        note.addStringProperty("ATIEReleaseDate");
+        note.addIntProperty("ATIEHasSubmit").notNull();
+        note.addIntProperty("ATIEShared").notNull();
     }
 
     private static void addCustomerOrder(Schema schema) {

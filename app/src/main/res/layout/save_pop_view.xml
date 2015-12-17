@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/ic_save_select"
+    android:layout_height="wrap_content">
+    <TextView
+        android:text="分享"
+        android:id="@+id/id_shared"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="42dp" />
+    <TextView
+        android:text="私有"
+        android:id="@+id/id_privated"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="42dp" />
+</LinearLayout>
