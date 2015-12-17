@@ -237,6 +237,9 @@ public class InformalEssayActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(currentCoverUrl)){
                     lastEssay.setATIEImageUrl(ImageDownloader.Scheme.FILE.wrap(currentCoverUrl));
                 }
+                if (TextUtils.isEmpty(lastEssay.getATIEImageUrl())){
+                    lastEssay.setATIEImageUrl(ImageDownloader.Scheme.ASSETS.wrap("default_informal_essay.jpg"));
+                }
                 GreenDaoUtils.insertOrUpdateInformalEssay(InformalEssayActivity.this, lastEssay);
             }
         }).start();

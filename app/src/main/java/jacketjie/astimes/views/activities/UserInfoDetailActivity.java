@@ -1,5 +1,6 @@
 package jacketjie.astimes.views.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.download.ImageDownloader;
@@ -28,13 +30,14 @@ import jacketjie.astimes.utils.PictureUtil;
 public class UserInfoDetailActivity extends BaseActivity{
     private EditText userSignature;
     private EditText userNickName;
-    private EditText userGendar;
+    private TextView userGendar;
     private static final int PICTURE = 0x123;
     private CircleImageView userIcon;
     private Button logoutBtn;
-    private View iconContent;
+    private View iconContent,gendarContent;
 
     private ATUser updateUser;
+    private String iconUril;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +60,10 @@ public class UserInfoDetailActivity extends BaseActivity{
         });
 
         iconContent = findViewById(R.id.id_info_icon_content);
+        gendarContent = findViewById(R.id.id_info_gendar_content);
         userIcon = (CircleImageView) findViewById(R.id.id_info_icon);
         userNickName = (EditText) findViewById(R.id.id_info_nickname);
-        userGendar = (EditText) findViewById(R.id.id_info_gendar);
+        userGendar = (TextView) findViewById(R.id.id_info_gendar);
         userSignature = (EditText) findViewById(R.id.id_info_signature);
         logoutBtn = (Button) findViewById(R.id.id_user_logout);
 
@@ -68,6 +72,30 @@ public class UserInfoDetailActivity extends BaseActivity{
             public void onClick(View v) {
                 Intent picture = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(picture, PICTURE);
+            }
+        });
+        gendarContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               final Dialog dialog = new Dialog(UserInfoDetailActivity.this);
+                dialog.setTitle("选择");
+                View dialogView = getLayoutInflater().inflate(R.layout.gendar_select_layout,null);
+                dialogView.findViewById(R.id.id_info_gendar_female).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        userGendar.setText("女");
+                        dialog.dismiss();
+                    }
+                });
+                dialogView.findViewById(R.id.id_info_gendar_male).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        userGendar.setText("男");
+                        dialog.dismiss();
+                    }
+                });
+                dialog.setContentView(dialogView);
+                dialog.show();
             }
         });
 
@@ -85,6 +113,8 @@ public class UserInfoDetailActivity extends BaseActivity{
             }
         });
     }
+
+
 
     private void initDatas() {
         updateUser = AsTimeApp.getCurATUser();
@@ -120,6 +150,9 @@ public class UserInfoDetailActivity extends BaseActivity{
             if (!TextUtils.isEmpty(gendar)){
                 updateUser.setUserGender("男".equals(gendar)?1:0);
             }
+            if (!TextUtils.isEmpty(iconUril)){
+                updateUser.setUserIcon(iconUril);
+            }
             new UpdateUser().execute(updateUser);
             return true;
         }
@@ -131,8 +164,7 @@ public class UserInfoDetailActivity extends BaseActivity{
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICTURE && resultCode == RESULT_OK && data != null) {
             String currentCoverUrl = PictureUtil.getPath(this, data.getData());
-            String iconUril = ImageDownloader.Scheme.FILE.wrap(currentCoverUrl);
-            updateUser.setUserIcon(iconUril);
+            iconUril = ImageDownloader.Scheme.FILE.wrap(currentCoverUrl);
             ImageLoader.getInstance().displayImage(iconUril, userIcon);
         }
     }
