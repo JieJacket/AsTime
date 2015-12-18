@@ -136,7 +136,6 @@
                 android:paddingBottom="10dp"
                 android:paddingRight="20dp"
                 android:paddingLeft="10dp"
-
                 android:background="@drawable/common_item_style"
                 android:src="@drawable/icon_comment" />
 

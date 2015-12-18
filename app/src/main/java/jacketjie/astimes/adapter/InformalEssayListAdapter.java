@@ -1,6 +1,7 @@
 package jacketjie.astimes.adapter;
 
 import android.content.Context;
+import android.text.Html;
 
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 
@@ -25,12 +26,12 @@ public class InformalEssayListAdapter extends CommonAdapter<ATInformalEssay> {
 
     @Override
     public void convert(ViewHolder helper, ATInformalEssay item) {
-        helper.setText(R.id.id_second_item_title, item.getATIETitle());
+        helper.setText(R.id.id_second_item_title, Html.fromHtml( item.getATIETitle()).toString());
         String name = "AsTime";
         if (AsTimeApp.getCurATUser()!=null){
             name = AsTimeApp.getCurATUser().getUserNickName();
         }
-        helper.setText(R.id.id_second_item_name, name);
+        helper.setText(R.id.id_second_item_name,name.toString());
         helper.setText(R.id.id_second_item_date, item.getATIEReleaseDate());
         helper.setImageByImageLoader(R.id.id_second_item_icon, item.getATIEImageUrl());
     }

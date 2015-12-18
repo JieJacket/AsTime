@@ -77,7 +77,8 @@ public class GreenDaoUtils {
      * @return
      */
     public static List<ATInformalEssay> getAllInformalEssayByDate(Context context) {
-        return getInformalEssayDao(context).loadAll();
+        List<ATInformalEssay> sharedEssay = getInformalEssayDao(context).queryBuilder().where(ATInformalEssayDao.Properties.ATIEHasSubmit.eq(1)).list();
+        return sharedEssay;
     }
 
     /**
@@ -87,6 +88,10 @@ public class GreenDaoUtils {
      */
     public static ATInformalEssay getLastNotSubmit(Context context) {
         QueryBuilder<ATInformalEssay> qb = getInformalEssayDao(context).queryBuilder().where(ATInformalEssayDao.Properties.ATIEHasSubmit.eq(0));
+        return qb.unique();
+    }
+    public static ATInformalEssay getLastNotByATIEId(Context context,String ATIEId) {
+        QueryBuilder<ATInformalEssay> qb = getInformalEssayDao(context).queryBuilder().where(ATInformalEssayDao.Properties.ATIEId.eq(ATIEId));
         return qb.unique();
     }
 
@@ -115,6 +120,15 @@ public class GreenDaoUtils {
      */
     public static void deleteEssayWithId(Context context, long id) {
         getInformalEssayDao(context).delete(getEssaysForId(context, id));
+    }
+
+    /**
+     * 删除某条ATIE
+     * @param context
+     * @param essay
+     */
+    public static void deleteEssay(Context context, ATInformalEssay essay) {
+        getInformalEssayDao(context).delete(essay);
     }
 
     private static ATUserDao getUserDao(Context c) {

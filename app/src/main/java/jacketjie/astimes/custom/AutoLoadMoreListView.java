@@ -7,18 +7,18 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import jacketjie.astimes.R;
+import jacketjie.astimes.custom.swipelistview.SwipeMenuListView;
 import jacketjie.astimes.utils.interfaces.OnLoadMoreListener;
 
 /**
  * 可以自动加载更多的listview
  * Created by Administrator on 2015/12/16.
  */
-public class AutoLoadMoreListView extends ListView implements AbsListView.OnScrollListener {
+public class AutoLoadMoreListView extends SwipeMenuListView implements AbsListView.OnScrollListener {
     /**
      * 加载更多FooterView
      */

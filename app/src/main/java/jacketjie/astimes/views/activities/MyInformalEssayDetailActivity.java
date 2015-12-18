@@ -1,11 +1,14 @@
 package jacketjie.astimes.views.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -34,6 +37,7 @@ public class MyInformalEssayDetailActivity extends BaseActivity{
         setContentView(R.layout.main_second_fragment);
         showDialog();
         initViews();
+        setEventListener();
         initDatas();
     }
 
@@ -62,17 +66,78 @@ public class MyInformalEssayDetailActivity extends BaseActivity{
         });
         refreshLayout.setColorSchemeColors(R.color.colorPrimary);
 
+
+    }
+
+    private void setEventListener() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ATInformalEssay essay = mDatas.get(position);
-                Intent intent =new Intent(getApplicationContext(),SimpleWebViewActivity.class);
-                intent.putExtra("ATINFORMALESSAY_DETAILS",essay);
+                Intent intent = new Intent(getApplicationContext(), SimpleWebViewActivity.class);
+                intent.putExtra("ATINFORMALESSAY_DETAILS", essay);
                 startActivity(intent);
             }
         });
-    }
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                new AlertDialog.Builder(MyInformalEssayDetailActivity.this).setTitle("删除记录").setMessage("确认删除？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        GreenDaoUtils.deleteEssay(getApplicationContext(),mDatas.get(position));
+                        mDatas.remove(position);
+                        essayListAdapter.notifyDataSetChanged();
+
+                    }
+                }).setNegativeButton("取消", null).create().show();
+                return true;
+            }
+        });
+
+//        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+//            @Override
+//            public void onMenuItemClick(int position, SwipeMenu menu, int index) {
+//                switch (index) {
+//                    case 0:
+//                        mDatas.remove(position);
+//                        essayListAdapter.notifyDataSetChanged();
+//                        GreenDaoUtils.deleteEssay(getApplicationContext(),mDatas.get(position));
+//                        break;
+//                }
+//            }
+//        });
+//
+//        SwipeMenuCreator creator = new SwipeMenuCreator() {
+//
+//            @Override
+//            public void create(SwipeMenu menu) {
+//                // Create different menus depending on the view type
+//                // create "delete" item
+//                SwipeMenuItem deleteItem = new SwipeMenuItem(
+//                        getApplicationContext());
+//                // set item background
+//                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+//                        0x3F, 0x25)));
+//                // set item width
+//                deleteItem.setWidth(dp2px(90));
+//                // set a icon
+//                deleteItem.setIcon(R.drawable.ic_delete);
+//                // add to menu
+//                menu.addMenuItem(deleteItem);
+//            }
+//        };
+//
+//        listView.setMenuCreator(creator);
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new LoadAllDataTask(true).execute();
+            }
+        });
+    }
     /**
      * 加载数据
      */
@@ -94,6 +159,7 @@ public class MyInformalEssayDetailActivity extends BaseActivity{
             super.onPostExecute(atInformalEssays);
             hiddenDialog();
             listView.setOnLoadMoreComplete();
+            refreshLayout.setRefreshing(false);
             if (atInformalEssays == null || atInformalEssays.size() == 0){
                 return;
             }
@@ -103,5 +169,10 @@ public class MyInformalEssayDetailActivity extends BaseActivity{
             mDatas.addAll(atInformalEssays);
             essayListAdapter.notifyDataSetChanged();
         }
+    }
+
+    private int dp2px(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                getResources().getDisplayMetrics());
     }
 }

@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".views.activities.MainActivity">
+
+    <item
+        android:id="@+id/action_essay_prised"
+        android:icon="@drawable/ic_essay_prise"
+        android:orderInCategory="100"
+        android:title="点赞"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_essay_comment"
+        android:icon="@drawable/ic_essay_comment"
+        android:orderInCategory="100"
+        android:title="评论"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_essay_shared"
+        android:icon="@drawable/ic_essay_share"
+        android:orderInCategory="100"
+        android:title="分享"
+        app:showAsAction="always" />
+</menu>

@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include layout="@layout/app_toolbar"/>
+    <include layout="@layout/progressbar_layout"/>
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

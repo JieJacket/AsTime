@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -109,8 +112,8 @@ public class InformalEssayActivity extends BaseActivity {
         lastEssay = GreenDaoUtils.getLastNotSubmit(this);
         if (lastEssay != null){
             ImageLoader.getInstance().displayImage(lastEssay.getATIEImageUrl(), coverImage);
-            titleEdit.setText(TextUtils.isEmpty(lastEssay.getATIETitle()) ? "" : lastEssay.getATIETitle());
-            essayEdit.setText(TextUtils.isEmpty(lastEssay.getATIEText()) ? "" : lastEssay.getATIEText());
+            titleEdit.setText(TextUtils.isEmpty(lastEssay.getATIETitle()) ? "" : Html.fromHtml(lastEssay.getATIETitle()));
+            essayEdit.setText(TextUtils.isEmpty(lastEssay.getATIEText()) ? "" : Html.fromHtml(lastEssay.getATIEText()));
         }
     }
 
@@ -151,8 +154,10 @@ public class InformalEssayActivity extends BaseActivity {
         }
         SimpleDateFormat smd = new SimpleDateFormat("MM-dd HH:mm");
         lastEssay.setATIEReleaseDate(smd.format(new Date()));
-        lastEssay.setATIETitle(titleEdit.getText().toString().trim());
-        lastEssay.setATIEText(essayEdit.getText().toString().trim());
+        Spanned title = new SpannableString(titleEdit.getText().toString());
+        lastEssay.setATIETitle(Html.toHtml(title));
+        Spanned body = new SpannableString(essayEdit.getText().toString());
+        lastEssay.setATIEText(Html.toHtml(body));
         lastEssay.setATIEShared(id);
         lastEssay.setATIEHasSubmit(1);
         GreenDaoUtils.insertOrUpdateInformalEssay(this,lastEssay);
@@ -229,11 +234,16 @@ public class InformalEssayActivity extends BaseActivity {
                 if (lastEssay == null){
                     lastEssay = new ATInformalEssay();
                 }
+                if (lastEssay.getATIEHasSubmit() == 1)
+                    return;
                 SimpleDateFormat smd = new SimpleDateFormat("MM-dd HH:mm");
                 lastEssay.setATIEReleaseDate(smd.format(new Date()));
-                lastEssay.setATIETitle(titleEdit.getText().toString().trim());
-                lastEssay.setATIEText(essayEdit.getText().toString().trim());
+                Spanned title = new SpannableString(titleEdit.getText().toString());
+                lastEssay.setATIETitle(Html.toHtml(title));
+                Spanned body = new SpannableString(essayEdit.getText().toString());
+                lastEssay.setATIEText(Html.toHtml(body));
                 lastEssay.setATIEShared(0);
+                lastEssay.setATIEHasSubmit(0);
                 if (!TextUtils.isEmpty(currentCoverUrl)){
                     lastEssay.setATIEImageUrl(ImageDownloader.Scheme.FILE.wrap(currentCoverUrl));
                 }
