@@ -25,7 +25,7 @@ public class MyDaoGenerator {
     private static void addNote(Schema schema) {
         Entity note = schema.addEntity("ATUser");
         note.addIdProperty();
-        note.addIntProperty("userId").notNull().unique();
+        note.addStringProperty("userId").notNull().unique();
         note.addStringProperty("userName").notNull();
         note.addStringProperty("userPassword");
         note.addStringProperty("userPhonenumber");

@@ -79,7 +79,7 @@ public class EditTextWithDrawable extends EditText implements TextWatcher {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int eventX, eventY;
-        Rect rect = null;
+        Rect rect;
         if (event.getAction() == MotionEvent.ACTION_UP) {
             eventX = (int) event.getRawX();
             eventY = (int) event.getRawY();
@@ -97,7 +97,6 @@ public class EditTextWithDrawable extends EditText implements TextWatcher {
                 rect.left = rect.right - dw - getPaddingRight();
                 if (rect.contains(eventX, eventY) && onEditTextDrawableClickListener != null && isDrawableRightEnable) {
                     onEditTextDrawableClickListener.onDrawableRightClickListener();
-                    return true;
                 }
             }
         }

@@ -244,7 +244,7 @@ public class InformalEssayActivity extends BaseActivity {
                 lastEssay.setATIEText(Html.toHtml(body));
                 lastEssay.setATIEShared(0);
                 lastEssay.setATIEHasSubmit(0);
-                if (!TextUtils.isEmpty(currentCoverUrl)){
+                if (!TextUtils.isEmpty(currentCoverUrl) && lastEssay.getATIEImageUrl() != null){
                     lastEssay.setATIEImageUrl(ImageDownloader.Scheme.FILE.wrap(currentCoverUrl));
                 }
                 if (TextUtils.isEmpty(lastEssay.getATIEImageUrl())){

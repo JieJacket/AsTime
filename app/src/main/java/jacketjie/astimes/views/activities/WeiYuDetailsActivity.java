@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import org.json.JSONObject;
 
 import jacketjie.astimes.R;
 import jacketjie.astimes.custom.EditTextWithDrawable;
+import jacketjie.astimes.custom.ListViewForScrollView;
 import jacketjie.astimes.model.WeiYu;
 import jacketjie.astimes.utils.HttpUtils;
 import jacketjie.astimes.utils.KeyBoardUtils;
@@ -28,17 +30,18 @@ import jacketjie.astimes.utils.StatusBarUtil;
 import jacketjie.astimes.utils.interfaces.OnEditTextDrawableClickListener;
 
 /**
- * 美文详情
+ * 微语详情
  * Created by Administrator on 2015/12/11.
  */
 public class WeiYuDetailsActivity extends BaseActivity {
 
+    private ScrollView scrollView;
     private Toolbar toolbar;
     private TextView userName,weiyuDate,userSignature;
     private ImageView userIcon,userGendar,weiyuContentImage;
     private TextView weiyuContent;
     private TextView fromClent;
-    private ListView commentListView;
+    private ListViewForScrollView commentListView;
     private EditTextWithDrawable commentEdit;
     private int targetWidth;
 
@@ -54,11 +57,12 @@ public class WeiYuDetailsActivity extends BaseActivity {
 //        showDialog();
         initViews();
         setDataAndEventListener();
+
     }
 
     private void initViews() {
 //        final EssayDetail essay = getIntent().getParcelableExtra("DETAILS");
-
+        scrollView = (ScrollView) findViewById(R.id.id_detail_content);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         userName = (TextView) findViewById(R.id.id_weiyu_detail_username);
         userGendar = (ImageView) findViewById(R.id.id_weiyu_detail_user_gendar);
@@ -68,10 +72,11 @@ public class WeiYuDetailsActivity extends BaseActivity {
         weiyuContent = (TextView) findViewById(R.id.id_weiyu_detail_content_text);
         weiyuContentImage = (ImageView) findViewById(R.id.id_weiyu_detail_content_image);
         fromClent = (TextView) findViewById(R.id.id_weiyu_from);
-        commentListView = (ListView) findViewById(R.id.id_weiyu_comment_list);
+        commentListView = (ListViewForScrollView) findViewById(R.id.id_weiyu_comment_list);
 
         commentEdit = (EditTextWithDrawable) findViewById(R.id.id_weiyu_send_comment);
 //        new LoadDataTask().execute(getString(R.string.essay_type_list_detail_address), essay.getDetailId());
+        scrollView.smoothScrollTo(0,0);
     }
     private void setDataAndEventListener() {
         WeiYu weiYu = getIntent().getParcelableExtra("WEIYU");
@@ -117,9 +122,10 @@ public class WeiYuDetailsActivity extends BaseActivity {
 
             @Override
             public void onDrawableRightClickListener() {
-                KeyBoardUtils.closeKeybord(commentEdit, WeiYuDetailsActivity.this);
+//                KeyBoardUtils.closeKeybord(commentEdit, WeiYuDetailsActivity.this);
                 Toast.makeText(getApplicationContext(),"send：" + commentEdit.getText().toString(),Toast.LENGTH_LONG).show();
                 commentEdit.clear();
+                commentEdit.clearFocus();
             }
         });
     }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/id_comment_user_icon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/as_time_icon"
+        android:layout_margin="10dp" />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/id_comment_user_icon"
+        android:layout_toEndOf="@+id/id_comment_user_icon"
+        android:orientation="vertical">
+
+        <TextView
+            android:text="@string/user_name"
+            android:id="@+id/id_comment_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_p50"
+            android:textSize="@dimen/main_subhead_size" />
+
+        <TextView
+            android:text="contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent"
+            android:id="@+id/id_comment_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_typeface_style" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:text="刚刚"
+        android:id="@+id/id_comment_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/black_p50" />
+</RelativeLayout>

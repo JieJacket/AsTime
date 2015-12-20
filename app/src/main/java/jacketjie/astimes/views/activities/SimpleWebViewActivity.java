@@ -115,7 +115,7 @@ public class SimpleWebViewActivity extends BaseActivity {
             html.append("<img src=").append("\"").append(imageUrl).append("\"").append("/>").append("<br/>");
         }
         if (!TextUtils.isEmpty(text)) {
-            html.append("<h4>").append(Html.fromHtml(text)).append("</h4>");
+            html.append("<p style=\"line-height:100%\">").append(Html.fromHtml(text)).append("</p>");
         }
         html.append("</body>").append("</html>");
 
