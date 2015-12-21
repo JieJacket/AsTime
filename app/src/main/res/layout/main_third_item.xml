@@ -93,86 +93,89 @@
         android:showDividers="middle">
 
         <FrameLayout
+            android:id="@+id/id_weiyu_share_content"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:background="@drawable/common_item_style"
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center">
 
             <ImageView
                 android:id="@+id/id_weiyu_share"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/common_item_style"
-                android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:paddingRight="20dp"
                 android:paddingLeft="10dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
                 android:src="@drawable/icon_share" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
                 android:gravity="center"
-                android:layout_marginLeft="20dp"
                 android:text="@string/share_str"
                 android:textSize="@dimen/min_body_size" />
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/id_weiyu_comment_content"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/common_item_style"
             android:clickable="true">
 
             <ImageView
                 android:id="@+id/id_weiyu_comment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:paddingRight="20dp"
                 android:paddingLeft="10dp"
-                android:background="@drawable/common_item_style"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
                 android:src="@drawable/icon_comment" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="15dp"
                 android:gravity="center"
                 android:text="@string/comment_str"
                 android:textSize="@dimen/min_body_size" />
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/id_weiyu_prise_content"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:background="@drawable/common_item_style"
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center">
 
             <ImageView
                 android:id="@+id/id_weiyu_prise"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingRight="20dp"
-                android:paddingLeft="10dp"
-                android:background="@drawable/common_item_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
                 android:src="@drawable/icon_prise" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="15dp"
                 android:gravity="center"
                 android:text="@string/prise_str"
                 android:textSize="@dimen/min_body_size" />

@@ -10,7 +10,6 @@ import java.util.UUID;
  */
 public class ATInformalEssay implements Serializable{
 
-
     private Long id;
     /** Not-null value. */
     private String ATIEId;

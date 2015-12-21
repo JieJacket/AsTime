@@ -1,14 +1,17 @@
 package jacketjie.astimes.views.activities;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -20,6 +23,7 @@ import jacketjie.astimes.adapter.InformalEssayListAdapter;
 import jacketjie.astimes.custom.AutoLoadMoreListView;
 import jacketjie.astimes.greenDao.ATInformalEssay;
 import jacketjie.astimes.greenDao.GreenDaoUtils;
+import jacketjie.astimes.views.fragments.MainSecondFragment;
 
 /**
  * Created by Administrator on 2015/12/17.
@@ -31,10 +35,26 @@ public class MyInformalEssayDetailActivity extends BaseActivity{
     private List<ATInformalEssay> mDatas;
     private Toolbar toolbar;
     private InformalEssayListAdapter essayListAdapter;
+
+    private LocalBroadcastManager lbm;
+    private BroadcastReceiver recevie = new BroadcastReceiver(){
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (MainSecondFragment.UPDATE_ESSAY_LIST_ACTION.equals(intent.getAction())){
+//                Toast.makeText(getApplicationContext(), "需要更新", Toast.LENGTH_LONG).show();
+                showDialog();
+                new LoadAllDataTask(true).execute();
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_second_fragment);
+        lbm = LocalBroadcastManager.getInstance(this);
+        IntentFilter filter = new IntentFilter(MainSecondFragment.UPDATE_ESSAY_LIST_ACTION);
+        lbm.registerReceiver(recevie, filter);
         showDialog();
         initViews();
         setEventListener();
@@ -65,7 +85,13 @@ public class MyInformalEssayDetailActivity extends BaseActivity{
             }
         });
         refreshLayout.setColorSchemeColors(R.color.colorPrimary);
-
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), InformalEssayActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -138,6 +164,13 @@ public class MyInformalEssayDetailActivity extends BaseActivity{
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        lbm.unregisterReceiver(recevie);
+    }
+
     /**
      * 加载数据
      */
@@ -171,8 +204,4 @@ public class MyInformalEssayDetailActivity extends BaseActivity{
         }
     }
 
-    private int dp2px(int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-                getResources().getDisplayMetrics());
-    }
 }

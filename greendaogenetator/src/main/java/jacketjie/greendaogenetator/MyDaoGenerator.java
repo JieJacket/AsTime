@@ -18,7 +18,7 @@ public class MyDaoGenerator {
         addNote(schema);
         addAdsNote(schema);
 //        addCustomerOrder(schema);
-
+        addCommentNote(schema);
         new DaoGenerator().generateAll(schema, "../AsTimes/app/src/main/java");
     }
     //用户
@@ -47,6 +47,17 @@ public class MyDaoGenerator {
         note.addStringProperty("ATIEReleaseDate");
         note.addIntProperty("ATIEHasSubmit").notNull();
         note.addIntProperty("ATIEShared").notNull();
+    }
+    //随笔
+    private static void addCommentNote(Schema schema) {
+        Entity note = schema.addEntity("ATComment");
+        note.addIdProperty();
+        note.addStringProperty("commentId").notNull().unique();
+        note.addStringProperty("commentUserId");
+        note.addStringProperty("commentDate");
+        note.addStringProperty("commentDetail");
+        note.addBooleanProperty("commentHasSubmit");
+        note.addStringProperty("weiYuId").notNull();
     }
 
     private static void addCustomerOrder(Schema schema) {

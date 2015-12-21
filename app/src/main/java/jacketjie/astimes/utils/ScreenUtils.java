@@ -7,6 +7,7 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
@@ -285,5 +286,16 @@ public class ScreenUtils {
 			// 清除滤镜
 			drawable.clearColorFilter();
 		}
+	}
+
+	/**
+	 * dp转px
+	 * @param context
+	 * @param dp
+	 * @return
+	 */
+	public static int dp2px(Context context,int dp) {
+		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+				context.getResources().getDisplayMetrics());
 	}
 }

@@ -147,9 +147,9 @@ public class InformalEssayActivity extends BaseActivity {
         if (lastEssay == null){
             lastEssay = new ATInformalEssay();
         }
-        if (!TextUtils.isEmpty(currentCoverUrl)){
+        if (!TextUtils.isEmpty(currentCoverUrl) ){
             lastEssay.setATIEImageUrl(ImageDownloader.Scheme.FILE.wrap(currentCoverUrl));
-        }else{
+        }else if (lastEssay.getATIEImageUrl() == null){
             lastEssay.setATIEImageUrl(ImageDownloader.Scheme.ASSETS.wrap("default_informal_essay.jpg"));
         }
         SimpleDateFormat smd = new SimpleDateFormat("MM-dd HH:mm");
@@ -161,9 +161,9 @@ public class InformalEssayActivity extends BaseActivity {
         lastEssay.setATIEShared(id);
         lastEssay.setATIEHasSubmit(1);
         GreenDaoUtils.insertOrUpdateInformalEssay(this,lastEssay);
-        if (id == 1){
+
             LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(MainSecondFragment.UPDATE_ESSAY_LIST_ACTION));
-        }
+
         onBackPressed();
     }
 
@@ -244,7 +244,7 @@ public class InformalEssayActivity extends BaseActivity {
                 lastEssay.setATIEText(Html.toHtml(body));
                 lastEssay.setATIEShared(0);
                 lastEssay.setATIEHasSubmit(0);
-                if (!TextUtils.isEmpty(currentCoverUrl) && lastEssay.getATIEImageUrl() != null){
+                if (!TextUtils.isEmpty(currentCoverUrl) ){
                     lastEssay.setATIEImageUrl(ImageDownloader.Scheme.FILE.wrap(currentCoverUrl));
                 }
                 if (TextUtils.isEmpty(lastEssay.getATIEImageUrl())){

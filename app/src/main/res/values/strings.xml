@@ -51,5 +51,6 @@
     <string name="forget_password_str">忘记密码？</string>
     <string name="logout_str">退出登录</string>
     <string name="please_login_first">请先登录</string>
+    <string name="comment_is_empty">评论内容不能为空</string>
 
 </resources>

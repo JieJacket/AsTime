@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:fitsSystemWindows="true"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
     android:orientation="vertical">
 
     <include layout="@layout/app_toolbar" />
@@ -11,149 +13,146 @@
     <ScrollView
         android:id="@+id/id_detail_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/progressbar_layout" />
-
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/id_weiyu_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/item_bg_shape"
-                android:focusable="true"
-                android:focusableInTouchMode="true">
-
-                <LinearLayout
-                    android:id="@+id/id_weiyu_detail"
+                android:orientation="vertical">
+                <!-- 顶部用户相关-->
+                <RelativeLayout
+                    android:id="@+id/id_top_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/item_bg_shape"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <RelativeLayout
-                        android:id="@+id/id_top_detail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/id_weiyu_detail_icon"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="15dp"
+                        android:src="@drawable/as_time_icon" />
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/id_weiyu_detail_icon"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:layout_centerVertical="true"
-                            android:layout_margin="15dp"
-                            android:src="@drawable/as_time_icon" />
-
-                        <LinearLayout
-                            android:id="@+id/id_user_top"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toRightOf="@+id/id_weiyu_detail_icon"
-                            android:divider="@drawable/horizontal_divider"
-                            android:orientation="vertical"
-                            android:showDividers="end">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:id="@+id/id_weiyu_detail_username"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="name" />
-
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:id="@+id/id_weiyu_detail_user_gendar"
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:src="@drawable/icon_male" />
-
-                                <TextView
-                                    android:id="@+id/id_weiyu_detail_date"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="15dp"
-                                    android:gravity="center_vertical|end"
-                                    android:text="date" />
-                            </LinearLayout>
-
-                            <TextView
-                                android:id="@+id/id_weiyu_user_signature"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="5dp"
-                                android:text="@string/default_signature"
-                                android:textColor="@android:color/darker_gray"
-                                android:textSize="@dimen/min_body_size" />
-                        </LinearLayout>
-                    </RelativeLayout>
-
-                    <RelativeLayout
+                    <LinearLayout
+                        android:id="@+id/id_user_top"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/id_top_detail"
-                        android:layout_marginLeft="66dp">
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/id_weiyu_detail_icon"
+                        android:divider="@drawable/horizontal_divider"
+                        android:orientation="vertical"
+                        android:showDividers="end">
 
-                        <ImageView
-                            android:id="@+id/id_weiyu_detail_content_image"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginTop="15dp"
-                            android:src="@drawable/ic_stub" />
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/id_weiyu_detail_username"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="name" />
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/id_weiyu_detail_user_gendar"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginLeft="5dp"
+                                android:src="@drawable/icon_male" />
+
+                            <TextView
+                                android:id="@+id/id_weiyu_detail_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:gravity="center_vertical|end"
+                                android:text="date" />
+                        </LinearLayout>
 
                         <TextView
-                            android:id="@+id/id_weiyu_detail_content_text"
+                            android:id="@+id/id_weiyu_user_signature"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/id_weiyu_detail_content_image"
-                            android:layout_marginTop="10dp"
-                            android:text="呵呵" />
-
-                        <ImageView
-                            android:id="@+id/id_weiyu_detail_content_prise"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_below="@+id/id_weiyu_detail_content_text"
-                            android:layout_margin="20dp"
-                            android:src="@drawable/icon_prise" />
-
-                        <TextView
-                            android:id="@+id/id_weiyu_from"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/id_weiyu_detail_content_prise"
-                            android:layout_alignTop="@+id/id_weiyu_detail_content_prise"
-                            android:text="来自魅族MX5" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <jacketjie.astimes.custom.ListViewForScrollView
-                    android:id="@+id/id_weiyu_comment_list"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/default_signature"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="@dimen/min_body_size" />
+                    </LinearLayout>
+                </RelativeLayout>
+                <!-- 评论相关-->
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/id_weiyu_detail" />
+                    android:layout_below="@+id/id_top_detail"
+                    android:layout_marginLeft="66dp">
 
-                <jacketjie.astimes.custom.EditTextWithDrawable xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/id_weiyu_send_comment"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/main_btn_dimen"
-                    android:layout_alignParentBottom="true"
-                    android:background="@drawable/item_bg_shape"
-                    android:hint="@string/comment_edit_str"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    app:defaultDrawableRight="@drawable/default_edit_send"
-                    app:drawableRightEnable="@drawable/enable_edit_send" />
-            </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/id_weiyu_detail_content_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/ic_stub" />
+
+                    <TextView
+                        android:id="@+id/id_weiyu_detail_content_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/id_weiyu_detail_content_image"
+                        android:layout_marginTop="10dp"
+                        android:text="呵呵" />
+
+                    <ImageView
+                        android:id="@+id/id_weiyu_detail_content_prise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/id_weiyu_detail_content_text"
+                        android:layout_margin="20dp"
+                        android:src="@drawable/icon_prise" />
+
+                    <TextView
+                        android:id="@+id/id_weiyu_from"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/id_weiyu_detail_content_prise"
+                        android:layout_alignTop="@+id/id_weiyu_detail_content_prise"
+                        android:text="来自魅族MX5" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <jacketjie.astimes.custom.ListViewForScrollView
+                android:id="@+id/id_weiyu_comment_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/id_weiyu_detail"
+                android:layout_marginBottom="50dp" />
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <jacketjie.astimes.custom.EditTextWithDrawable xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/id_weiyu_send_comment"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_btn_dimen"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@drawable/item_bg_shape"
+        android:hint="@string/comment_edit_str"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:defaultDrawableRight="@drawable/default_edit_send"
+        app:drawableRightEnable="@drawable/enable_edit_send" />
+    <include layout="@layout/progressbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?android:attr/actionBarSize"/>
+</FrameLayout>

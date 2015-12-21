@@ -24,7 +24,7 @@ public class ATUserDao extends AbstractDao<ATUser, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property UserId = new Property(1, int.class, "userId", false, "USER_ID");
+        public final static Property UserId = new Property(1, String.class, "userId", false, "USER_ID");
         public final static Property UserName = new Property(2, String.class, "userName", false, "USER_NAME");
         public final static Property UserPassword = new Property(3, String.class, "userPassword", false, "USER_PASSWORD");
         public final static Property UserPhonenumber = new Property(4, String.class, "userPhonenumber", false, "USER_PHONENUMBER");
@@ -50,7 +50,7 @@ public class ATUserDao extends AbstractDao<ATUser, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "'ATUSER' (" + //
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
-                "'USER_ID' INTEGER NOT NULL UNIQUE ," + // 1: userId
+                "'USER_ID' TEXT NOT NULL UNIQUE ," + // 1: userId
                 "'USER_NAME' TEXT NOT NULL ," + // 2: userName
                 "'USER_PASSWORD' TEXT," + // 3: userPassword
                 "'USER_PHONENUMBER' TEXT," + // 4: userPhonenumber
@@ -77,7 +77,7 @@ public class ATUserDao extends AbstractDao<ATUser, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindLong(2, entity.getUserId());
+        stmt.bindString(2, entity.getUserId());
         stmt.bindString(3, entity.getUserName());
  
         String userPassword = entity.getUserPassword();
@@ -128,7 +128,7 @@ public class ATUserDao extends AbstractDao<ATUser, Long> {
     public ATUser readEntity(Cursor cursor, int offset) {
         ATUser entity = new ATUser( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.getInt(offset + 1), // userId
+            cursor.getString(offset + 1), // userId
             cursor.getString(offset + 2), // userName
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // userPassword
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // userPhonenumber
@@ -146,7 +146,7 @@ public class ATUserDao extends AbstractDao<ATUser, Long> {
     @Override
     public void readEntity(Cursor cursor, ATUser entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setUserId(cursor.getInt(offset + 1));
+        entity.setUserId(cursor.getString(offset + 1));
         entity.setUserName(cursor.getString(offset + 2));
         entity.setUserPassword(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setUserPhonenumber(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));

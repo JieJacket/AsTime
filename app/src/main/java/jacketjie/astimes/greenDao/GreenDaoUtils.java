@@ -27,24 +27,29 @@ public class GreenDaoUtils {
     public static ATUser getUserForId(Context context, long id) {
         return getUserDao(context).load(id);
     }
+    public static ATUser getUserForUserId(Context context, String userId) {
+        return getUserDao(context).queryBuilder().where(ATUserDao.Properties.UserId.eq(userId)).unique();
+    }
 
-    public static ATUser getUserFromLogin(Context context,String userName,String password){
-        Query<ATUser> query = getUserDao(context).queryBuilder().where(ATUserDao.Properties.UserName.eq(userName) , ATUserDao.Properties.UserPassword.eq(password)).build();
+    public static ATUser getUserFromLogin(Context context, String userName, String password) {
+        Query<ATUser> query = getUserDao(context).queryBuilder().where(ATUserDao.Properties.UserName.eq(userName), ATUserDao.Properties.UserPassword.eq(password)).build();
         ATUser atUser = query.unique();
         return atUser;
     }
-    public static ATUser getUserForStauts(Context context){
+
+    public static ATUser getUserForStauts(Context context) {
         Query<ATUser> query = getUserDao(context).queryBuilder().where(ATUserDao.Properties.IsActiveUser.eq(true)).build();
         ATUser atUser = query.unique();
         return atUser;
     }
-    public static boolean isUserHadExisted(Context context,String userName){
+
+    public static boolean isUserHadExisted(Context context, String userName) {
         Query<ATUser> query = getUserDao(context).queryBuilder().where(ATUserDao.Properties.UserName.eq(userName)).build();
         List<ATUser> list = query.list();
-        if (list == null || list.size() == 0){
+        if (list == null || list.size() == 0) {
             return false;
         }
-        return true ;
+        return true;
     }
 
     public static List<ATUser> getAllUsers(Context context) {
@@ -54,6 +59,7 @@ public class GreenDaoUtils {
 
     /**
      * 增加或者更新ATIE
+     *
      * @param context
      * @param essay
      */
@@ -63,16 +69,18 @@ public class GreenDaoUtils {
 
     /**
      * 获取所有共享的ATIE，以更新时间，降序排序
+     *
      * @param context
      * @return
      */
     public static List<ATInformalEssay> getAllSharedInformalEssayByDate(Context context) {
-        List<ATInformalEssay> sharedEssay  = getInformalEssayDao(context).queryBuilder().where(ATInformalEssayDao.Properties.ATIEShared.eq(1)).orderDesc(ATInformalEssayDao.Properties.ATIEReleaseDate).list();
+        List<ATInformalEssay> sharedEssay = getInformalEssayDao(context).queryBuilder().where(ATInformalEssayDao.Properties.ATIEShared.eq(1)).orderDesc(ATInformalEssayDao.Properties.ATIEReleaseDate).list();
         return sharedEssay;
     }
 
     /**
      * 获取所有ATIE，更新时间降序
+     *
      * @param context
      * @return
      */
@@ -83,6 +91,7 @@ public class GreenDaoUtils {
 
     /**
      * 获取所有ATIE，更新时间降序
+     *
      * @param context
      * @return
      */
@@ -90,13 +99,15 @@ public class GreenDaoUtils {
         QueryBuilder<ATInformalEssay> qb = getInformalEssayDao(context).queryBuilder().where(ATInformalEssayDao.Properties.ATIEHasSubmit.eq(0));
         return qb.unique();
     }
-    public static ATInformalEssay getLastNotByATIEId(Context context,String ATIEId) {
+
+    public static ATInformalEssay getLastNotByATIEId(Context context, String ATIEId) {
         QueryBuilder<ATInformalEssay> qb = getInformalEssayDao(context).queryBuilder().where(ATInformalEssayDao.Properties.ATIEId.eq(ATIEId));
         return qb.unique();
     }
 
     /**
      * 根据Id获取ATIE
+     *
      * @param context
      * @param id
      * @return
@@ -107,6 +118,7 @@ public class GreenDaoUtils {
 
     /**
      * 清空所有ATIE
+     *
      * @param context
      */
     public static void clearEssays(Context context) {
@@ -115,6 +127,7 @@ public class GreenDaoUtils {
 
     /**
      * 删除某条ATIE
+     *
      * @param context
      * @param id
      */
@@ -124,6 +137,7 @@ public class GreenDaoUtils {
 
     /**
      * 删除某条ATIE
+     *
      * @param context
      * @param essay
      */
@@ -131,11 +145,49 @@ public class GreenDaoUtils {
         getInformalEssayDao(context).delete(essay);
     }
 
+    /**
+     * 添加一条评论
+     *
+     * @param context
+     * @param comment
+     */
+    public static void addComment(Context context, ATComment comment) {
+        getCommentDao(context).insert(comment);
+    }
+
+    /**
+     * 一次添加多条评论
+     * @param context
+     * @param comments
+     */
+    public static void addCommentLists(Context context, List<ATComment> comments) {
+        for (ATComment entity : comments)
+            getCommentDao(context).insertInTx(entity);
+    }
+
+    public static List<ATComment> getAllComments(Context context,String weiyuId){
+        return getCommentDao(context).queryBuilder().where(ATCommentDao.Properties.WeiYuId.eq(weiyuId)).list();
+    }
+
+    /**
+     * 删除一条评论
+     *
+     * @param context
+     * @param comment
+     */
+    public static void deleteComment(Context context, ATComment comment) {
+        getCommentDao(context).delete(comment);
+    }
+
     private static ATUserDao getUserDao(Context c) {
         return ((AsTimeApp) c.getApplicationContext()).getDaoSession().getATUserDao();
     }
 
-    private static ATInformalEssayDao getInformalEssayDao(Context c){
+    private static ATInformalEssayDao getInformalEssayDao(Context c) {
         return ((AsTimeApp) c.getApplicationContext()).getDaoSession().getATInformalEssayDao();
+    }
+
+    private static ATCommentDao getCommentDao(Context c) {
+        return ((AsTimeApp) c.getApplicationContext()).getDaoSession().getATCommentDao();
     }
 }

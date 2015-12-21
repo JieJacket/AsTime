@@ -1,38 +1,40 @@
 package jacketjie.astimes.adapter;
 
 import android.content.Context;
-import android.text.Html;
+import android.text.TextUtils;
 
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 import java.util.List;
 
-import jacketjie.astimes.AsTimeApp;
 import jacketjie.astimes.R;
-import jacketjie.astimes.greenDao.ATInformalEssay;
+import jacketjie.astimes.greenDao.ATComment;
+import jacketjie.astimes.greenDao.ATUser;
+import jacketjie.astimes.greenDao.GreenDaoUtils;
 import jacketjie.astimes.utils.ScreenUtils;
 
 /**
- * GridView 的适配器
+ * 微语评论的适配器
  * Created by Administrator on 2015/12/11.
  */
-public class WeiyuCommentListAdapter extends CommonAdapter<ATInformalEssay> {
+public class WeiyuCommentListAdapter extends CommonAdapter<ATComment> {
+    private  Context context;
     private ImageSize imageSize;
-
-    public WeiyuCommentListAdapter(Context context, List<ATInformalEssay> mDatas, int itemLayoutId) {
+    private ATUser user;
+    public WeiyuCommentListAdapter(Context context, List<ATComment> mDatas, int itemLayoutId) {
         super(context, mDatas, itemLayoutId);
         int width = ScreenUtils.getScreenWidth(context);
+        this.context = context;
     }
 
     @Override
-    public void convert(ViewHolder helper, ATInformalEssay item) {
-        helper.setText(R.id.id_second_item_title, Html.fromHtml( item.getATIETitle()).toString());
-        String name = "AsTime";
-        if (AsTimeApp.getCurATUser()!=null){
-            name = AsTimeApp.getCurATUser().getUserNickName();
+    public void convert(ViewHolder helper, ATComment item) {
+        ATUser  user = GreenDaoUtils.getUserForUserId(context,item.getCommentUserId());
+        helper.setText(R.id.id_comment_content, item.getCommentDetail());
+        helper.setText(R.id.id_comment_user_name,user.getUserNickName());
+        helper.setText(R.id.id_comment_date, TextUtils.isEmpty(item.getCommentDate()) ? "" : item.getCommentDate());
+        if (!TextUtils.isEmpty(user.getUserIcon())){
+            helper.setImageByImageLoader(R.id.id_comment_user_icon,user.getUserIcon() );
         }
-        helper.setText(R.id.id_second_item_name,name.toString());
-        helper.setText(R.id.id_second_item_date, item.getATIEReleaseDate());
-        helper.setImageByImageLoader(R.id.id_second_item_icon, item.getATIEImageUrl());
     }
 }

@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -144,7 +142,8 @@ public class MainFirstFragment extends Fragment implements View.OnClickListener,
 //        tabsLinear = (LinearLayout) dispalyView.findViewById(R.id.id_personal_title_content);
         mViewPager = (ViewPager) dispalyView.findViewById(R.id.id_first_view_pager);
         tabLayout = (TabLayout) dispalyView.findViewById(R.id.id_tabs);
-
+        tabLayout.setSelectedTabIndicatorHeight(ScreenUtils.dp2px(getActivity(),2));
+        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#fefefe"));
 //        tabSlider = (LinearLayout) dispalyView.findViewById(R.id.fun_slider_line);
 //
 //        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tabsLinear.getLayoutParams();

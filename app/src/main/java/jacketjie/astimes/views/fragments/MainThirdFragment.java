@@ -80,6 +80,7 @@ public class MainThirdFragment extends BaseFragment {
         for (int i = 0; i < 20; i++) {
             WeiYu weiYu = new WeiYu();
             weiYu.setDate(format.format(new Date()));
+            weiYu.setId(String.valueOf(i));
             weiYu.setUserName(DEFAULT_USER_NAMES[i % DEFAULT_USER_NAMES.length]);
             if (i % 3 == 0) {
                 weiYu.setContent(DEFAULT_CONTENT[i % DEFAULT_CONTENT.length]);

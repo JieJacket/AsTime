@@ -33,14 +33,14 @@ public class WeiYuListAdapter extends CommonAdapter<WeiYu> {
     @Override
     public void convert(ViewHolder helper, WeiYu item) {
         //分享
-        ImageView shareTv = helper.getView(R.id.id_weiyu_share);
-        shareTv.setTag(item);
+        ImageView shareIV = helper.getView(R.id.id_weiyu_share);
+        shareIV.setTag(item);
         //评论
-        ImageView commentTv = helper.getView(R.id.id_weiyu_comment);
-        commentTv.setTag(item);
+        ImageView commentIV = helper.getView(R.id.id_weiyu_comment);
+        commentIV.setTag(item);
         //点赞
-        ImageView priseTv = helper.getView(R.id.id_weiyu_prise);
-        priseTv.setTag(item);
+        ImageView priseIV = helper.getView(R.id.id_weiyu_prise);
+        priseIV.setTag(item);
         //个人头像
 //        helper.setImageByImageLoader(R.id.id_weiyu_icon, item.getUserIcon());
         //个人头像
@@ -68,36 +68,41 @@ public class WeiYuListAdapter extends CommonAdapter<WeiYu> {
         }
         //是否赞过
         if (item.isHasPrised()) {
-            shareTv.setImageResource(R.drawable.icon_shared);
+            shareIV.setImageResource(R.drawable.icon_shared);
         } else {
-            shareTv.setImageResource(R.drawable.icon_share);
+            shareIV.setImageResource(R.drawable.icon_share);
         }
         //是否已经评论
         if (item.isHasCommented()) {
-            commentTv.setImageResource(R.drawable.icon_commented);
+            commentIV.setImageResource(R.drawable.icon_commented);
         } else {
-            commentTv.setImageResource(R.drawable.icon_comment);
+            commentIV.setImageResource(R.drawable.icon_comment);
         }
         //是否已经分享
         if (item.isHasShared()) {
-            priseTv.setImageResource(R.drawable.icon_prised);
+            priseIV.setImageResource(R.drawable.icon_prised);
         } else {
-            priseTv.setImageResource(R.drawable.icon_prise);
+            priseIV.setImageResource(R.drawable.icon_prise);
         }
+        View framePrise, frameShare, frameComment;
+        framePrise = helper.getView(R.id.id_weiyu_prise_content);
+        frameShare = helper.getView(R.id.id_weiyu_share_content);
+        frameComment = helper.getView(R.id.id_weiyu_comment_content);
+        framePrise.setTag(item);
+        frameShare.setTag(item);
+        frameComment.setTag(item);
         //设置点击事件
-        setEventListener(priseTv);
+        setEventListener(framePrise, priseIV);
     }
 
-    private void setEventListener(final ImageView priseTv) {
-        priseTv.setOnClickListener(new View.OnClickListener() {
+    private void setEventListener(View content, final ImageView priseIV) {
+        content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WeiYu weiyu = (WeiYu) v.getTag();
-                if (!weiyu.isHasPrised()) {
-                   Animation anim =  AnimationUtils.loadAnimation(mContext,R.anim.prised_anim);
-                    priseTv.setImageResource(R.drawable.icon_prised);
-                    priseTv.startAnimation(anim);
-                }
+                Animation anim = AnimationUtils.loadAnimation(mContext, R.anim.prised_anim);
+                priseIV.setImageResource(R.drawable.icon_prised);
+                priseIV.startAnimation(anim);
             }
         });
     }
