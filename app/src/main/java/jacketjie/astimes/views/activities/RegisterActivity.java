@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.download.ImageDownloader;
+
 import jacketjie.astimes.AsTimeApp;
 import jacketjie.astimes.R;
 import jacketjie.astimes.greenDao.ATUser;
@@ -63,7 +65,7 @@ public class RegisterActivity extends BaseActivity{
     }
 
     /**
-     * 检查登录状态
+     * 注册
      */
     class RegisterTask extends AsyncTask<String,Void,ATUser> {
         @Override
@@ -77,6 +79,7 @@ public class RegisterActivity extends BaseActivity{
                 user.setUserNickName(userName);
                 user.setUserPassword(password);
                 user.setIsActiveUser(true);
+                user.setUserIcon(ImageDownloader.Scheme.DRAWABLE.wrap(R.drawable.as_time_icon + ""));
                 GreenDaoUtils.insertOrUpdateUser(getApplicationContext(), user);
                 AsTimeApp.setCurATUser(user);
             }
