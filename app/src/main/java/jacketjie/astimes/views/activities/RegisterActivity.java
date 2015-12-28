@@ -76,7 +76,7 @@ public class RegisterActivity extends BaseActivity{
             String userName = params[0];
             String password = params[1];
             StringBuffer sb = new StringBuffer();
-            sb.append("username=").append(userName).append("&").append("password=").append(password);
+            sb.append("username=").append(userName).append("&password=").append(password);
             String result = HttpUtils.doPost(REGISTER_URL,sb.toString());
             ATUser user = null;
             if (!GreenDaoUtils.isUserHadExisted(getApplicationContext(),userName)){

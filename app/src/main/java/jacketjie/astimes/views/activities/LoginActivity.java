@@ -12,18 +12,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import jacketjie.astimes.AsTimeApp;
 import jacketjie.astimes.R;
 import jacketjie.astimes.greenDao.ATUser;
 import jacketjie.astimes.greenDao.GreenDaoUtils;
+import jacketjie.astimes.utils.HttpUtils;
 
 /**
  * Created by wujie on 2015/12/12.
  */
-public class LoginActivity extends BaseActivity{
+public class LoginActivity extends BaseActivity {
     private Button loginBtn;
-    private EditText userNameEdit,passwordEdit;
+    private EditText userNameEdit, passwordEdit;
     private TextView registerTV;
+    private String LOGIN_URL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +53,7 @@ public class LoginActivity extends BaseActivity{
         userNameEdit = (EditText) findViewById(R.id.id_username);
         passwordEdit = (EditText) findViewById(R.id.id_password);
         registerTV = (TextView) findViewById(R.id.id_user_register);
+        LOGIN_URL = getString(R.string.as_times_address) + getString(R.string.login_address);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,13 +65,13 @@ public class LoginActivity extends BaseActivity{
                     Toast.makeText(LoginActivity.this, R.string.passwot_is_empty, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                new CheckLoginTask().execute(userNameEdit.getText().toString().trim(), passwordEdit.getText().toString().trim());
+                new LoginTask().execute(userNameEdit.getText().toString().trim(), passwordEdit.getText().toString().trim());
             }
         });
         registerTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivityForResult(intent, 0x123);
                 overridePendingTransition(R.anim.activity_right_in, R.anim.activity_left_out);
             }
@@ -74,37 +81,99 @@ public class LoginActivity extends BaseActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       if (requestCode == 0x123){
-           if (resultCode == RESULT_OK){
-               LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
-               Intent intent = new Intent("UPDATE_USER_RECEIVER");
-               lbm.sendBroadcast(intent);
-               LoginActivity.this.finish();
-           }
-       }
+        if (requestCode == 0x123) {
+            if (resultCode == RESULT_OK) {
+                LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
+                Intent intent = new Intent("UPDATE_USER_RECEIVER");
+                lbm.sendBroadcast(intent);
+                LoginActivity.this.finish();
+            }
+        }
+    }
+
+    /**
+     * 登录
+     */
+    class LoginTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            String userName = params[0];
+            String password = params[1];
+            StringBuffer sb = new StringBuffer();
+            sb.append("username=").append(userName).append("&password=").append(password);
+            String result = HttpUtils.doPost(LOGIN_URL, sb.toString());
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (TextUtils.isEmpty(s)) {
+                return;
+            }
+            try {
+                JSONObject jo = new JSONObject(s);
+                int ret = jo.getInt("code");
+                switch (ret) {
+                    case 200:
+                        JSONObject object = jo.getJSONObject("data");
+                        if (object != null) {
+                            final ATUser user = new ATUser();
+                            user.setUserId(object.getString("uid"));
+                            user.setUserNickName(object.getString("nickname"));
+                            user.setUserName(object.getString("username"));
+                            user.setUserIcon(object.getString("face"));
+                            user.setUserSignature(object.getString("autograph"));
+                            user.setIsActiveUser(true);
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    GreenDaoUtils.insertOrUpdateUser(getApplicationContext(), user);
+                                }
+                            }).start();
+                            AsTimeApp.setCurATUser(user);
+                            LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(LoginActivity.this);
+                            Intent intent = new Intent("UPDATE_USER_RECEIVER");
+                            lbm.sendBroadcast(intent);
+                            LoginActivity.this.onBackPressed();
+                        }
+                        break;
+                    default:
+                        Toast.makeText(getApplicationContext(), "登录失败", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
      * 检查登录状态
      */
-    class CheckLoginTask extends AsyncTask<String,Void,ATUser>{
+    class CheckLoginTask extends AsyncTask<String, Void, ATUser> {
         @Override
         protected ATUser doInBackground(String... params) {
             String userName = params[0];
             String password = params[1];
-            ATUser user = GreenDaoUtils.getUserFromLogin(getApplicationContext(), userName, password);
-            if (user != null){
-                user.setIsActiveUser(true);
-                GreenDaoUtils.insertOrUpdateUser(getApplicationContext(), user);
-            }
+            StringBuffer sb = new StringBuffer();
+            sb.append("username=").append(userName).append("&password=").append(password);
+            String result = HttpUtils.doPost(LOGIN_URL, sb.toString());
+//            ATUser user = GreenDaoUtils.getUserFromLogin(getApplicationContext(), userName, password);
+//            if (user != null){
+//                user.setIsActiveUser(true);
+//                GreenDaoUtils.insertOrUpdateUser(getApplicationContext(), user);
+//            }
+            ATUser user = new ATUser();
             return user;
         }
 
         @Override
         protected void onPostExecute(ATUser result) {
             super.onPostExecute(result);
-            if (result == null){
-                Toast.makeText(getApplicationContext(),R.string.invalid_user_str,Toast.LENGTH_SHORT).show();
+            if (result == null) {
+                Toast.makeText(getApplicationContext(), R.string.invalid_user_str, Toast.LENGTH_SHORT).show();
                 return;
             }
             AsTimeApp.setCurATUser(result);

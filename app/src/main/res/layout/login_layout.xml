@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/main_btn_dimen"
                     android:background="@null"
-                    android:inputType="numberPassword"
+                    android:inputType="textPassword"
                     android:hint="@string/user_password" />
             </android.support.design.widget.TextInputLayout>
 
