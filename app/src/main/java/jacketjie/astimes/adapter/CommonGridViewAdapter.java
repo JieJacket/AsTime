@@ -2,8 +2,7 @@ package jacketjie.astimes.adapter;
 
 import android.content.Context;
 import android.view.ViewGroup;
-
-import com.nostra13.universalimageloader.core.assist.ImageSize;
+import android.widget.ImageView;
 
 import java.util.List;
 
@@ -16,22 +15,26 @@ import jacketjie.astimes.utils.ScreenUtils;
  * Created by Administrator on 2015/12/11.
  */
 public class CommonGridViewAdapter extends CommonAdapter<Essay> {
-    private final int imageWith;
-    private ImageSize imageSize;
+    private final int imageWith, imageHeight;
+//    private ImageSize imageSize;
 
-    public CommonGridViewAdapter(Context context, List<Essay> mDatas, int itemLayoutId) {
+    public CommonGridViewAdapter(Context context, List<Essay> mDatas, int tabheight, int itemLayoutId) {
         super(context, mDatas, itemLayoutId);
         int width = ScreenUtils.getScreenWidth(context);
+        //（宽度为屏幕的宽度 - 左右中间的间隔）/ 2
         imageWith = (width - 15 * ScreenUtils.getDensityDpi(context) / 160) / 2;
-        imageSize = new ImageSize(imageWith, (int) (imageWith * 1.0f / 1.6));
+        //（高度为屏幕的高度 - 状态栏高度 - APPlayout高度 - FragmentTabHost的TabWidget高度 -图片间隔*5 - 1)）/4
+        imageHeight = (int) ((ScreenUtils.getScreenHeight(context) - ScreenUtils.getStatusHeight(context) - 24 * ScreenUtils.getDensityDpi(context) / 160 - tabheight) * 1.0f / 4);
+//        imageSize = new ImageSize(imageWith, (int) (imageWith * 1.0f / 1.6));
     }
 
     @Override
     public void convert(ViewHolder helper, Essay item) {
-        ViewGroup.LayoutParams lp = helper.getConvertView().getLayoutParams();
+        ImageView iv = helper.getView(R.id.id_essay_item_image);
+        ViewGroup.LayoutParams lp = iv.getLayoutParams();
         lp.width = imageWith;
-        lp.height = (int) (imageWith * 1.f / 1.6);
-        helper.getConvertView().setLayoutParams(lp);
+        lp.height = imageHeight;
+        iv.setLayoutParams(lp);
         helper.setText(R.id.id_essay_item_title, item.getEssayName());
         helper.setImageByImageLoader(R.id.id_essay_item_image, item.getDisplayUrl());
     }

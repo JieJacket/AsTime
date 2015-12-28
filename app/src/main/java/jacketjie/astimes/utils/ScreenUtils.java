@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -297,5 +298,15 @@ public class ScreenUtils {
 	public static int dp2px(Context context,int dp) {
 		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
 				context.getResources().getDisplayMetrics());
+	}
+
+	/**
+	 * 获取View高度
+	 * @param view
+	 * @return
+	 */
+	public static int getViewHeight(View view){
+		view.measure(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+		return view.getMeasuredHeight();
 	}
 }

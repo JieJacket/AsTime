@@ -1,5 +1,6 @@
 package jacketjie.astimes.views.activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -47,8 +48,8 @@ public class WeiYuDetailsActivity extends BaseActivity {
 
     private ScrollView scrollView;
     private Toolbar toolbar;
-    private TextView userName,weiyuDate,userSignature;
-    private ImageView userIcon,userGendar,weiyuContentImage,priseImage;
+    private TextView userName, weiyuDate, userSignature;
+    private ImageView userIcon, userGendar, weiyuContentImage, priseImage;
     private TextView weiyuContent;
     private TextView fromClent;
     private ListViewForScrollView commentListView;
@@ -56,6 +57,7 @@ public class WeiYuDetailsActivity extends BaseActivity {
     private int targetWidth;
     private List<ATComment> comments;
     private WeiyuCommentListAdapter commentListAdapter;
+    private WeiYu weiYu;
 
     public WeiYuDetailsActivity() {
     }
@@ -68,8 +70,8 @@ public class WeiYuDetailsActivity extends BaseActivity {
         setContentView(R.layout.weiyu_ditail_layout);
 //        showDialog();
         initViews();
-        setDataAndEventListener();
-
+        initDatas();
+        setEventListener();
     }
 
     private void initViews() {
@@ -88,14 +90,48 @@ public class WeiYuDetailsActivity extends BaseActivity {
         priseImage = (ImageView) findViewById(R.id.id_weiyu_detail_content_prise);
         commentEdit = (EditTextWithDrawable) findViewById(R.id.id_weiyu_send_comment);
 //        new LoadDataTask().execute(getString(R.string.essay_type_list_detail_address), essay.getDetailId());
-        scrollView.smoothScrollTo(0,0);
+        scrollView.smoothScrollTo(0, 0);
     }
-    private void setDataAndEventListener() {
-        final WeiYu weiYu = getIntent().getParcelableExtra("WEIYU");
+
+    private void initDatas() {
+        weiYu = getIntent().getParcelableExtra("WEIYU");
         toolbar.setTitle("心灵鸡汤");
-        targetWidth = ScreenUtils.getScreenWidth(this) - (66+20) * ScreenUtils.getDensityDpi(this) / 160 ;
+        targetWidth = ScreenUtils.getScreenWidth(this) - (66 + 20) * ScreenUtils.getDensityDpi(this) / 160;
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        userName.setText(TextUtils.isEmpty(weiYu.getUserName()) ? "" : weiYu.getUserName());
+        weiyuDate.setText(TextUtils.isEmpty(weiYu.getDate()) ? "" : weiYu.getDate());
+        userSignature.setText(TextUtils.isEmpty(weiYu.getUserSignature()) ? getString(R.string.default_signature) : weiYu.getUserSignature());
+        if (TextUtils.isEmpty(weiYu.getImageUrl())) {
+            weiyuContentImage.setVisibility(View.GONE);
+        } else {
+            weiyuContentImage.setVisibility(View.VISIBLE);
+            ImageLoader.getInstance().loadImage(weiYu.getImageUrl(), new SimpleImageLoadingListener() {
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    super.onLoadingComplete(imageUri, view, loadedImage);
+                    Bitmap bit = PictureUtil.decodebitmap(loadedImage, targetWidth);
+                    weiyuContentImage.setImageBitmap(bit);
+                }
+            });
+        }
+        if (TextUtils.isEmpty(weiYu.getContent())) {
+            weiyuContent.setVisibility(View.GONE);
+        } else {
+            weiyuContent.setVisibility(View.VISIBLE);
+            weiyuContent.setText(weiYu.getContent());
+        }
+
+        comments = GreenDaoUtils.getAllComments(getApplicationContext(), weiYu.getId());
+        commentListAdapter = new WeiyuCommentListAdapter(this, comments, R.layout.weiyu_detail_comment_item);
+        commentListView.setAdapter(commentListAdapter);
+    }
+
+    /**
+     * 设置监听事件
+     */
+    private void setEventListener() {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -103,28 +139,6 @@ public class WeiYuDetailsActivity extends BaseActivity {
                 onBackPressed();
             }
         });
-        userName.setText(TextUtils.isEmpty(weiYu.getUserName()) ? "" : weiYu.getUserName());
-        weiyuDate.setText(TextUtils.isEmpty(weiYu.getDate())?"":weiYu.getDate());
-        userSignature.setText(TextUtils.isEmpty(weiYu.getUserSignature())?getString(R.string.default_signature):weiYu.getUserSignature());
-        if (TextUtils.isEmpty(weiYu.getImageUrl())){
-            weiyuContentImage.setVisibility(View.GONE);
-        }else{
-            weiyuContentImage.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().loadImage(weiYu.getImageUrl(), new SimpleImageLoadingListener(){
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    super.onLoadingComplete(imageUri, view, loadedImage);
-                    Bitmap bit = PictureUtil.decodebitmap(loadedImage,targetWidth);
-                    weiyuContentImage.setImageBitmap(bit);
-                }
-            });
-        }
-        if (TextUtils.isEmpty(weiYu.getContent())){
-            weiyuContent.setVisibility(View.GONE);
-        }else{
-            weiyuContent.setVisibility(View.VISIBLE);
-            weiyuContent.setText(weiYu.getContent());
-        }
 
         commentEdit.setOnEditTextDrawableClickListener(new OnEditTextDrawableClickListener() {
             @Override
@@ -140,7 +154,7 @@ public class WeiYuDetailsActivity extends BaseActivity {
                     return;
                 }
                 String content = commentEdit.getText().toString();
-                if (TextUtils.isEmpty(content)){
+                if (TextUtils.isEmpty(content)) {
                     Toast.makeText(getApplicationContext(), R.string.comment_is_empty, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -155,7 +169,7 @@ public class WeiYuDetailsActivity extends BaseActivity {
                 commentListAdapter.notifyDataSetChanged();
                 commentEdit.clear();
                 commentEdit.clearFocus();
-                GreenDaoUtils.addComment(getApplicationContext(),comment);
+                GreenDaoUtils.addComment(getApplicationContext(), comment);
                 KeyBoardUtils.closeKeybord(commentEdit, WeiYuDetailsActivity.this);
             }
         });
@@ -168,10 +182,20 @@ public class WeiYuDetailsActivity extends BaseActivity {
                 priseImage.startAnimation(anim);
             }
         });
-        comments = GreenDaoUtils.getAllComments(getApplicationContext(),weiYu.getId());
-        commentListAdapter = new WeiyuCommentListAdapter(this,comments,R.layout.weiyu_detail_comment_item);
-        commentListView.setAdapter(commentListAdapter);
+        weiyuContentImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ImageDetailActivity.class);
+                intent.putExtra("IMAGE_TITLE", weiYu.getUserName());
+                intent.putExtra("IMAGE_URL", weiYu.getImageUrl());
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+        });
+
     }
+
+
     /**
      * 请求数据
      */

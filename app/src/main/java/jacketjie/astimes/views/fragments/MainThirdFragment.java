@@ -172,6 +172,7 @@ public class MainThirdFragment extends BaseFragment {
             if (mark % 2 == 0) {
                 for (int i = 1; i <= 20; i++) {
                     WeiYu weiYu = new WeiYu();
+                    weiYu.setId(String.valueOf(i));
                     weiYu.setDate(format.format(new Date()));
                     weiYu.setUserName(DEFAULT_USER_NAMES[i % DEFAULT_USER_NAMES.length]);
                     if (i % 3 == 0) {
@@ -187,6 +188,7 @@ public class MainThirdFragment extends BaseFragment {
             } else {
                 for (int i = 0; i < 20; i++) {
                     WeiYu weiYu = new WeiYu();
+                    weiYu.setId(String.valueOf(i));
                     weiYu.setDate(format.format(new Date()));
                     weiYu.setUserName(DEFAULT_USER_NAMES[i % DEFAULT_USER_NAMES.length]);
                     if (i % 3 == 0) {

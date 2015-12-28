@@ -14,7 +14,6 @@ public class Comment  implements Parcelable{
     private String commentDate;
     private String commentDatil;
 
-
     public String getCommentDate() {
         return commentDate;
     }

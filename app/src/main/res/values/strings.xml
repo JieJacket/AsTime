@@ -5,6 +5,28 @@
     <string name="essay_type_address">http://www.asweb.sinaapp.com/api/</string>
     <string name="essay_type_list_address">http://www.asweb.sinaapp.com/api/getlist/</string>
     <string name="essay_type_list_detail_address">http://www.asweb.sinaapp.com/api/getdetail/</string>
+    <!-- 服务器地址-->
+    <string name="as_times_address">http://astimes.cn/</string>
+    <!-- 注册-->
+    <string name="register_address">app/login/register/</string>
+    <!-- 登录-->
+    <string name="login_address">app/login/loginIn/</string>
+    <!-- 退出-->
+    <string name="logout_address">app/login/logout/</string>
+    <!-- 美文-->
+    <string name="article_address">app/article/</string>
+    <!-- 美文列表-->
+    <string name="article_list_address">app/article/getlist/</string>
+    <!-- 美文列表详情-->
+    <string name="article_list_detail_address">app/article/getdetail/</string>
+
+    <!-- 图片-->
+    <string name="image_address">app/images/</string>
+    <!-- 图片列表-->
+    <string name="image_list_address">app/images/getlist/</string>
+    <!-- 图片列表详情-->
+    <string name="image_list_detail_address">app/images/getdetail/</string>
+
     <string name="user_name">用户名</string>
     <string name="user_password">密码</string>
     <string name="password_repeat_str">确认密码</string>

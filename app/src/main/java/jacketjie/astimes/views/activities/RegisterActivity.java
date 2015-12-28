@@ -15,6 +15,7 @@ import jacketjie.astimes.AsTimeApp;
 import jacketjie.astimes.R;
 import jacketjie.astimes.greenDao.ATUser;
 import jacketjie.astimes.greenDao.GreenDaoUtils;
+import jacketjie.astimes.utils.HttpUtils;
 
 /**
  * Created by Administrator on 2015/12/16.
@@ -22,6 +23,7 @@ import jacketjie.astimes.greenDao.GreenDaoUtils;
 public class RegisterActivity extends BaseActivity{
     private Button loginBtn;
     private EditText userNameEdit,passwordEdit,repeatPassEdit;
+    private String REGISTER_URL ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,7 @@ public class RegisterActivity extends BaseActivity{
         userNameEdit = (EditText) findViewById(R.id.id_username);
         passwordEdit = (EditText) findViewById(R.id.id_password);
         repeatPassEdit = (EditText) findViewById(R.id.id_password_repeat);
+        REGISTER_URL = getString(R.string.as_times_address) + getString(R.string.register_address);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +75,9 @@ public class RegisterActivity extends BaseActivity{
         protected ATUser doInBackground(String... params) {
             String userName = params[0];
             String password = params[1];
+            StringBuffer sb = new StringBuffer();
+            sb.append("username=").append(userName).append("&").append("password=").append(password);
+            String result = HttpUtils.doPost(REGISTER_URL,sb.toString());
             ATUser user = null;
             if (!GreenDaoUtils.isUserHadExisted(getApplicationContext(),userName)){
                 user = new ATUser();

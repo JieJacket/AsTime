@@ -18,6 +18,7 @@ import java.util.List;
 import jacketjie.astimes.R;
 import jacketjie.astimes.adapter.CommonGridViewAdapter;
 import jacketjie.astimes.model.Essay;
+import jacketjie.astimes.views.activities.AsTimeMainActivity;
 import jacketjie.astimes.views.activities.EssayDetailsActivity;
 
 /**
@@ -54,10 +55,11 @@ public class RadioStationFragment extends Fragment implements AdapterView.OnItem
             essay.setEssayId(i+"");
             essay.setDisplayUrl(imageUrls.get(i));
             essay.setEssayName(titles[i]);
-            essay.setGallery(imageUrls);
+//            essay.setGallery(imageUrls);
             mDatas.add(essay);
         }
-        essayAdapter = new CommonGridViewAdapter(getActivity(), mDatas, R.layout.essay_grid_item);
+        int height = ((AsTimeMainActivity)getActivity()).getTabsHeight();
+        essayAdapter = new CommonGridViewAdapter(getActivity(), mDatas, height,R.layout.essay_grid_item);
         essayGridView.setAdapter(essayAdapter);
         essayGridView.setOnItemClickListener(this);
     }

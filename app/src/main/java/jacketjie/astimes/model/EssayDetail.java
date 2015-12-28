@@ -11,13 +11,15 @@ public class EssayDetail implements Parcelable {
     private String detailTitle;
     private String detailSub;
     private String detailUrl;
-   private String detailType;
-   private String detailDate;
+    private String detailType;
+    private String detailDate;
+    private int type;
 //    private String detailId;
 //    private String detailTitle;
 //    private String detailSub;
 //    private String detailUrl;
 //    private String detailType;
+
 
     @Override
     public int describeContents() {
@@ -32,6 +34,7 @@ public class EssayDetail implements Parcelable {
         dest.writeString(this.detailUrl);
         dest.writeString(this.detailType);
         dest.writeString(this.detailDate);
+        dest.writeInt(this.type);
     }
 
     public EssayDetail() {
@@ -44,6 +47,7 @@ public class EssayDetail implements Parcelable {
         this.detailUrl = in.readString();
         this.detailType = in.readString();
         this.detailDate = in.readString();
+        this.type = in.readInt();
     }
 
     public static final Creator<EssayDetail> CREATOR = new Creator<EssayDetail>() {
@@ -56,20 +60,20 @@ public class EssayDetail implements Parcelable {
         }
     };
 
+    public String getDetailDate() {
+        return detailDate;
+    }
+
+    public void setDetailDate(String detailDate) {
+        this.detailDate = detailDate;
+    }
+
     public String getDetailId() {
         return detailId;
     }
 
     public void setDetailId(String detailId) {
         this.detailId = detailId;
-    }
-
-    public String getDetailTitle() {
-        return detailTitle;
-    }
-
-    public void setDetailTitle(String detailTitle) {
-        this.detailTitle = detailTitle;
     }
 
     public String getDetailSub() {
@@ -80,12 +84,12 @@ public class EssayDetail implements Parcelable {
         this.detailSub = detailSub;
     }
 
-    public String getDetailUrl() {
-        return detailUrl;
+    public String getDetailTitle() {
+        return detailTitle;
     }
 
-    public void setDetailUrl(String detailUrl) {
-        this.detailUrl = detailUrl;
+    public void setDetailTitle(String detailTitle) {
+        this.detailTitle = detailTitle;
     }
 
     public String getDetailType() {
@@ -96,11 +100,19 @@ public class EssayDetail implements Parcelable {
         this.detailType = detailType;
     }
 
-    public String getDetailDate() {
-        return detailDate;
+    public String getDetailUrl() {
+        return detailUrl;
     }
 
-    public void setDetailDate(String detailDate) {
-        this.detailDate = detailDate;
+    public void setDetailUrl(String detailUrl) {
+        this.detailUrl = detailUrl;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

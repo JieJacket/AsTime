@@ -35,6 +35,7 @@
         <activity android:name=".views.activities.UserInfoDetailActivity"/>
         <activity android:name=".views.activities.MyInformalEssayDetailActivity"/>
         <activity android:name=".views.activities.SimpleWebViewActivity"/>
+        <activity android:name=".views.activities.ImageDetailActivity"/>
     </application>
 
 </manifest>

@@ -28,6 +28,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0" />
         </jacketjie.astimes.custom.AnimFragmentTabHost>
+
     </LinearLayout>
 
     <!--<RelativeLayout

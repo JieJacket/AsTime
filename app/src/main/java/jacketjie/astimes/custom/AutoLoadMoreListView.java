@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
@@ -18,7 +21,7 @@ import jacketjie.astimes.utils.interfaces.OnLoadMoreListener;
  * 可以自动加载更多的listview
  * Created by Administrator on 2015/12/16.
  */
-public class AutoLoadMoreListView extends SwipeMenuListView implements AbsListView.OnScrollListener {
+public class AutoLoadMoreListView extends SwipeMenuListView implements AbsListView.OnScrollListener,GestureDetector.OnGestureListener{
     /**
      * 加载更多FooterView
      */
@@ -39,6 +42,7 @@ public class AutoLoadMoreListView extends SwipeMenuListView implements AbsListVi
      * 是否监听滑动加载更多
      */
     private boolean isLoadMoreEnable =true;
+    private GestureDetector gestureDetector;
 
     /**
      * 设置加载更多的listener
@@ -59,7 +63,7 @@ public class AutoLoadMoreListView extends SwipeMenuListView implements AbsListVi
 
     public AutoLoadMoreListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context,attrs);
+        init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
@@ -70,9 +74,10 @@ public class AutoLoadMoreListView extends SwipeMenuListView implements AbsListVi
             footerView = LayoutInflater.from(context).inflate(R.layout.default_load_more_footerview, null);
             TextView label = (TextView) footerView.findViewById(R.id.id_load_label);
             ProgressBar pb = (ProgressBar) footerView.findViewById(R.id.id_load_pb);
-            label.setText(TextUtils.isEmpty(loadMoreLabel)?context.getResources().getString(R.string.default_loading_str):loadMoreLabel);
+            label.setText(TextUtils.isEmpty(loadMoreLabel) ? context.getResources().getString(R.string.default_loading_str) : loadMoreLabel);
             setLoadMoreListenerEnable(true);
             this.setOnScrollListener(this);
+           // gestureDetector = new GestureDetector(context,this);
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -112,5 +117,42 @@ public class AutoLoadMoreListView extends SwipeMenuListView implements AbsListVi
      */
     public void setLoadMoreListenerEnable(boolean isLoadMoreEnable){
         this.isLoadMoreEnable = isLoadMoreEnable;
+    }
+
+
+
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        if (e1.getAction() == MotionEvent.ACTION_DOWN){
+            Log.i("onFling","e1"+e1.getRawX());
+        }
+        Log.i("onFling","e2"+e2.getRawX());
+        return false;
     }
 }

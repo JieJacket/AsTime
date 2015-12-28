@@ -109,6 +109,7 @@ public class MainFirstFragment extends Fragment implements View.OnClickListener,
         tabLayout.setTabsFromPagerAdapter(adapter);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabLayout.setTabTextColors(Color.WHITE,Color.WHITE);
+        mViewPager.setOffscreenPageLimit(3);
 //        for (int i = 0; i < tabNames.length; i++) {
 //            TextView textView = new TextView(getActivity());
 //            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);

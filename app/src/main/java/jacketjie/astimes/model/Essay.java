@@ -3,8 +3,6 @@ package jacketjie.astimes.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
-
 /**
  * Created by Administrator on 2015/12/11.
  */
@@ -13,7 +11,11 @@ public class Essay implements Parcelable {
     private String essayName;
     private String displayUrl;
     private String essayContent;
-    private List<String> gallery;
+    /**
+     * 0:美文；1：电台；2：图片
+     */
+    private int type;
+
 
     @Override
     public int describeContents() {
@@ -26,7 +28,7 @@ public class Essay implements Parcelable {
         dest.writeString(this.essayName);
         dest.writeString(this.displayUrl);
         dest.writeString(this.essayContent);
-        dest.writeStringList(this.gallery);
+        dest.writeInt(this.type);
     }
 
     public Essay() {
@@ -37,7 +39,7 @@ public class Essay implements Parcelable {
         this.essayName = in.readString();
         this.displayUrl = in.readString();
         this.essayContent = in.readString();
-        this.gallery = in.createStringArrayList();
+        this.type = in.readInt();
     }
 
     public static final Creator<Essay> CREATOR = new Creator<Essay>() {
@@ -58,6 +60,14 @@ public class Essay implements Parcelable {
         this.displayUrl = displayUrl;
     }
 
+    public String getEssayContent() {
+        return essayContent;
+    }
+
+    public void setEssayContent(String essayContent) {
+        this.essayContent = essayContent;
+    }
+
     public String getEssayId() {
         return essayId;
     }
@@ -74,19 +84,22 @@ public class Essay implements Parcelable {
         this.essayName = essayName;
     }
 
-    public List<String> getGallery() {
-        return gallery;
+    public int getType() {
+        return type;
     }
 
-    public void setGallery(List<String> gallery) {
-        this.gallery = gallery;
+    public void setType(int type) {
+        this.type = type;
     }
 
-    public String getEssayContent() {
-        return essayContent;
-    }
-
-    public void setEssayContent(String essayContent) {
-        this.essayContent = essayContent;
+    @Override
+    public String toString() {
+        return "Essay{" +
+                "displayUrl='" + displayUrl + '\'' +
+                ", essayId='" + essayId + '\'' +
+                ", essayName='" + essayName + '\'' +
+                ", essayContent='" + essayContent + '\'' +
+                ", type=" + type +
+                '}';
     }
 }
