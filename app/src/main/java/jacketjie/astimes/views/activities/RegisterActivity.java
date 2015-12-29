@@ -11,6 +11,11 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.download.ImageDownloader;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.UUID;
+
 import jacketjie.astimes.AsTimeApp;
 import jacketjie.astimes.R;
 import jacketjie.astimes.greenDao.ATUser;
@@ -79,7 +84,33 @@ public class RegisterActivity extends BaseActivity{
             sb.append("username=").append(userName).append("&password=").append(password);
             String result = HttpUtils.doPost(REGISTER_URL,sb.toString());
             ATUser user = null;
-            if (!GreenDaoUtils.isUserHadExisted(getApplicationContext(),userName)){
+            if(TextUtils.isEmpty(result)){
+                return user;
+            }else{
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int ret = jsonObject.getInt("code");
+                    switch (ret){
+                        case 200:
+                          JSONObject o = jsonObject.getJSONObject("data");
+                            String username = o.getString("username");
+                            String userNickName = o.getString("nickname");
+                            user = new ATUser();
+                            user.setUserId(UUID.randomUUID().toString());
+                            user.setUserName(userName);
+                            user.setUserNickName(userNickName);
+                            user.setIsActiveUser(true);
+                            user.setUserIcon(ImageDownloader.Scheme.DRAWABLE.wrap(R.drawable.as_time_icon + ""));
+                            GreenDaoUtils.insertOrUpdateUser(getApplicationContext(), user);
+                            AsTimeApp.setCurATUser(user);
+                            break;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+          /*  if (!GreenDaoUtils.isUserHadExisted(getApplicationContext(),userName)){
                 user = new ATUser();
                 user.setUserName(userName);
                 user.setUserNickName(userName);
@@ -88,7 +119,7 @@ public class RegisterActivity extends BaseActivity{
                 user.setUserIcon(ImageDownloader.Scheme.DRAWABLE.wrap(R.drawable.as_time_icon + ""));
                 GreenDaoUtils.insertOrUpdateUser(getApplicationContext(), user);
                 AsTimeApp.setCurATUser(user);
-            }
+            }*/
             return user;
         }
 

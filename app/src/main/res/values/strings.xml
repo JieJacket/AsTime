@@ -60,7 +60,7 @@
     <string name="comment_edit_str">精彩评论，由你开始</string>
     <string name="default_loading_str">loading...</string>
     <string name="login_is_empty">用户名为空！</string>
-    <string name="user_had_existed">用户明已存在！</string>
+    <string name="user_had_existed">用户已存在！</string>
     <string name="passwot_is_empty">密码为空！</string>
     <string name="invalid_user_str">无效的用户</string>
     <string name="register_str">注册</string>

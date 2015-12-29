@@ -3,6 +3,7 @@ package jacketjie.astimes.custom.swipeback;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.os.Build;
 
 import java.lang.reflect.Method;
@@ -99,5 +100,10 @@ public class Utils {
             convertToTranslucent.invoke(activity, null, options);
         } catch (Throwable t) {
         }
+    }
+
+    public static int convertDpToPixel(Context context, int dp) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return Math.round((float) dp * density);
     }
 }
